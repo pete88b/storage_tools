@@ -22,3 +22,11 @@ Fill me in please! Don't forget code examples:
     2
 
 
+
+# Developers
+
+```
+!pip install fastcore
+!pip install boto3
+!pip install azure-storage-blob
+```

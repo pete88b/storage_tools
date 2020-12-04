@@ -1,12 +1,12 @@
 ---
 
-title: module name here
+title: Core
 
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "API details."
-description: "API details."
+summary: "Core tools for working with storage."
+description: "Core tools for working with storage."
 ---
 <!--
 
@@ -23,6 +23,372 @@ description: "API details."
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fastcore.test</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">configparser</span> <span class="k">import</span> <span class="n">SectionProxy</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="read_config" class="doc_header"><code>read_config</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>read_config</code>(<strong><code>section_name</code></strong>=<em><code>None</code></em>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">read_config</span><span class="p">(),</span><span class="n">ConfigParser</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">read_config</span><span class="p">()[</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">],</span><span class="n">SectionProxy</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">read_config</span><span class="p">(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">),</span><span class="nb">dict</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">read_config</span><span class="p">(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">)[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;data&#39;</span>
+<span class="k">assert</span> <span class="n">read_config</span><span class="p">(</span><span class="s1">&#39;local_cwd&#39;</span><span class="p">,</span><span class="n">config_name</span><span class="o">=</span><span class="s1">&#39;test//secrets//settings.ini&#39;</span><span class="p">)[</span><span class="s1">&#39;storage_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="StorageClientABC" class="doc_header"><code>class</code> <code>StorageClientABC</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L24" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>StorageClientABC</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>) :: <code>ABC</code></p>
+</blockquote>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="LocalStorageClient" class="doc_header"><code>class</code> <code>LocalStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L38" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LocalStorageClient</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+</blockquote>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">storage_client</span><span class="o">=</span><span class="n">LocalStorageClient</span><span class="p">(</span><span class="s1">&#39;local_test&#39;</span><span class="p">,</span><span class="s1">&#39;test//secrets//settings.ini&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="AzureStorageClient" class="doc_header"><code>class</code> <code>AzureStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L67" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AzureStorageClient</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+</blockquote>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="AwsStorageClient" class="doc_header"><code>class</code> <code>AwsStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L79" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AwsStorageClient</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+</blockquote>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L85" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>)</p>
+</blockquote>
+<p>Returns a storage client based on the configured <code>storage_type</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_fail</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;gcp_dummy&#39;</span><span class="p">,</span><span class="s1">&#39;test//secrets//settings.ini&#39;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_rmtree</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span> <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span> <span class="k">pass</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;test/local_path&#39;</span><span class="p">,</span><span class="s1">&#39;test/storage_area&#39;</span><span class="p">]:</span> <span class="n">_rmtree</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    
+<span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;local_test&#39;</span><span class="p">,</span><span class="s1">&#39;test//secrets//settings.ini&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">LocalStorageClient</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<span class="n">test_eq</span><span class="p">([],</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">())</span>
+<span class="n">test_eq</span><span class="p">([],</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">))</span>
+    
+<span class="n">test_files</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a/b/test_data2.txt&#39;</span><span class="p">,</span><span class="s1">&#39;sub/test_data1.txt&#39;</span><span class="p">,</span><span class="s1">&#39;test_data.txt&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_files</span><span class="p">):</span>
+    <span class="n">f</span><span class="o">=</span><span class="s1">&#39;test/local_path/&#39;</span><span class="o">+</span><span class="n">f</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_file</span><span class="p">:</span> <span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;a little bit of data </span><span class="si">{i}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">([],</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">())</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">test_files</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">))</span>
+        
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">test_files</span><span class="p">:</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">test_files</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">())</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">test_files</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">))</span>
+<span class="n">_rmtree</span><span class="p">(</span><span class="s1">&#39;test/local_path&#39;</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">([],</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">test_files</span><span class="p">:</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">test_files</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">))</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="s1">&#39;a little bit of data 2&#39;</span><span class="p">,</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test/local_path/test_data.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test/local_path/test_data.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_file</span><span class="p">:</span> <span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;upd&#39;</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="s1">&#39;upd&#39;</span><span class="p">,</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test/local_path/test_data.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="n">storage_client</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;test_data.txt&#39;</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="s1">&#39;upd&#39;</span><span class="p">,</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test/local_path/test_data.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="n">storage_client</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;test_data.txt&#39;</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="s1">&#39;a little bit of data 2&#39;</span><span class="p">,</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test/local_path/test_data.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+<span class="n">test_fail</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="s1">&#39;test_data.txt&#39;</span><span class="p">))</span>
+<span class="n">storage_client</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="s1">&#39;test_data.txt&#39;</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;azure_dummy&#39;</span><span class="p">,</span><span class="s1">&#39;test//secrets//settings.ini&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">AzureStorageClient</span><span class="p">)</span>
+<span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;aws_dummy&#39;</span><span class="p">,</span><span class="s1">&#39;test//secrets//settings.ini&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">AwsStorageClient</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
