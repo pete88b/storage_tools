@@ -22,20 +22,28 @@ def read_config(section_name=None,config_name='secrets//settings.ini'):
 
 # Cell
 class StorageClientABC(ABC):
+    "Defines functionality common to all storage clients"
+
     def __init__(self,storage_name,config_name='secrets//settings.ini'):
-        self.storage_name,self.config=storage_name,read_config(storage_name,config_name=config_name)
+        "Create a new storage client using the `storage_name` section of `config_name`"
+        self.config=read_config(storage_name,config_name=config_name)
 
     @abstractmethod
-    def ls(self): pass # return list or print
+    def ls(self,what):
+        "Return a list containing the names of files in either `storage_area` or `local_path`"
 
     @abstractmethod
-    def download(self,filename): pass
+    def download(self,filename):
+        "Copy `filename` from `storage_area` to `local_path`"
 
     @abstractmethod
-    def upload(self,filename,overwrite=False): pass
+    def upload(self,filename,overwrite=False):
+        "Copy `filename` from `local_path` to `storage_area`"
 
 # Cell
 class LocalStorageClient(StorageClientABC):
+    "Storage client that reads from and writes to the local filesystem"
+
     def _ls(self,p,result,len_path_prefix):
         for _p in p.iterdir():
             if _p.is_dir(): self._ls(_p,result,len_path_prefix)
