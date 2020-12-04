@@ -1,12 +1,10 @@
-# Project name here
-> Summary description here.
+# Storage tools
+> The goal of this project is to make it easy to work with local or cloud storage as part of a data science workflow.
 
-
-This file will become your README and also the index of your documentation.
 
 ## Install
 
-`pip install your_project_name`
+`pip install storage_tools`
 
 ## How to use
 
