@@ -42,7 +42,7 @@ class StorageClientABC(ABC):
 
 # Cell
 class LocalStorageClient(StorageClientABC):
-    "Storage client that reads from and writes to the local filesystem"
+    "Storage client that downloads from and uploads to the local filesystem"
 
     def _ls(self,p,result,len_path_prefix):
         for _p in p.iterdir():
