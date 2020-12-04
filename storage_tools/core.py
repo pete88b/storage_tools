@@ -22,7 +22,7 @@ def read_config(section_name=None,config_name='secrets//settings.ini'):
 
 # Cell
 class StorageClientABC(ABC):
-    "Defines functionality common to all storage clients"
+    """Defines functionality common to all storage clients"""
 
     def __init__(self,storage_name,config_name='secrets//settings.ini'):
         "Create a new storage client using the `storage_name` section of `config_name`"
@@ -42,7 +42,7 @@ class StorageClientABC(ABC):
 
 # Cell
 class LocalStorageClient(StorageClientABC):
-    "Storage client that downloads from and uploads to the local filesystem"
+    """Storage client that uses the local filesystem for both `storage_area` and `local_path`"""
 
     def _ls(self,p,result,len_path_prefix):
         for _p in p.iterdir():
@@ -73,6 +73,7 @@ class LocalStorageClient(StorageClientABC):
 
 # Cell
 class AzureStorageClient(StorageClientABC):
+    """Storage client that uses Azure for `storage_area` and the local filesystem `local_path`"""
     def _client(self):
         if getattr(self,'client') is None:
             service_client=az.BlobServiceClient.from_connection_string(
@@ -85,6 +86,7 @@ class AzureStorageClient(StorageClientABC):
 
 # Cell
 class AwsStorageClient(StorageClientABC):
+    """Storage client that uses AWS for `storage_area` and the local filesystem `local_path`"""
     def ls(self): pass
     def download(self,filename): pass
     def upload(self,filename,overwrite=False): pass

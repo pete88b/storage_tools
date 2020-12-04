@@ -156,7 +156,7 @@ description: "Core tools for working with storage."
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="LocalStorageClient" class="doc_header"><code>class</code> <code>LocalStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L44" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LocalStorageClient</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
-<p>Storage client that reads from and writes to the local filesystem</p>
+<p>Storage client that uses the local filesystem for both <code>storage_area</code> and <code>local_path</code></p>
 
 </div>
 
@@ -206,7 +206,7 @@ description: "Core tools for working with storage."
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="AzureStorageClient" class="doc_header"><code>class</code> <code>AzureStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L75" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AzureStorageClient</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
-<p>Defines functionality common to all storage clients</p>
+<p>Storage client that uses Azure for <code>storage_area</code> and the local filesystem <code>local_path</code></p>
 
 </div>
 
@@ -236,9 +236,9 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="AwsStorageClient" class="doc_header"><code>class</code> <code>AwsStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L87" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AwsStorageClient</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h2 id="AwsStorageClient" class="doc_header"><code>class</code> <code>AwsStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L88" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AwsStorageClient</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
-<p>Defines functionality common to all storage clients</p>
+<p>Storage client that uses AWS for <code>storage_area</code> and the local filesystem <code>local_path</code></p>
 
 </div>
 
@@ -268,7 +268,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L93" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>)</p>
+<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L95" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets//settings.ini'</code></em>)</p>
 </blockquote>
 <p>Returns a storage client based on the configured <code>storage_type</code></p>
 
