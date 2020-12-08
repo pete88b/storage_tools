@@ -3,6 +3,10 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"read_config": "00_core.ipynb",
+         "parse_dataset_archive_name": "00_core.ipynb",
+         "parse_dataset_archive_version": "00_core.ipynb",
+         "next_version": "00_core.ipynb",
+         "make_dataset_archive_folder": "00_core.ipynb",
          "StorageClientABC": "00_core.ipynb",
          "LocalStorageClient": "00_core.ipynb",
          "AzureStorageClient": "00_core.ipynb",
