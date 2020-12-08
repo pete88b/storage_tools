@@ -177,7 +177,7 @@ class AzureStorageClient(StorageClientABC):
         try:
             with open(p, 'rb') as f:
                 self.client.upload_blob(filename,f,overwrite=overwrite)
-            return f"{config['storage_type']}:{config['container']}:{filename}"
+            return f"{self.config['storage_type']}:{self.config['container']}:{filename}"
         except azure.core.exceptions.ResourceExistsError as e:
             raise FileExistsError(f'{e}\noverwrite=False')
 
