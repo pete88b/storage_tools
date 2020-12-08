@@ -11,9 +11,10 @@ from pathlib import Path
 import azure.storage.blob,azure.core.exceptions
 import boto3
 import shutil,re
+from typing import List, Union
 
 # Cell
-def read_config(section_name=None,config_name='secrets/settings.ini'):
+def read_config(section_name:str=None,config_name:str='secrets/settings.ini'):
     config_path=Path(config_name)
     config=ConfigParser()
     config.read(config_path)
@@ -24,20 +25,19 @@ def read_config(section_name=None,config_name='secrets/settings.ini'):
     return dict(config.items(section_name))
 
 # Cell
-def parse_dataset_archive_name(name):
+def parse_dataset_archive_name(name:str):
     "Returns (name,version) if `name` is a dataset archive name, `None` otherwise"
     match = re.match('^([\./\s\w-]+)\.(\d+\.\d+\.\d+)\.zip$',name)
-    if match is None: return None
-    return match.group(1,2)
+    return None if match is None else match.group(1,2)
 
 # Cell
-def parse_dataset_archive_version(version):
+def parse_dataset_archive_version(version:str):
     match = re.match('^(\d+)\.(\d+)\.(\d+)$',version)
-    if match is None: return None
-    return [int(s) for s in match.group(1,2,3)]
+    return None if match is None else [int(s) for s in match.group(1,2,3)]
 
 # Cell
-def next_version(versions,increment='patch'):
+def next_version(versions:List[str]=None,increment:str='patch'):
+    "Return the version that should follow the last version in `versions`"
     v=[0,0,0] if versions is None else parse_dataset_archive_version(versions[-1])
     if increment=='patch': v[2]+=1
     elif increment=='minor': v[1]+=1
@@ -46,8 +46,8 @@ def next_version(versions,increment='patch'):
     return f'{v[0]}.{v[1]}.{v[2]}'
 
 # Cell
-def make_dataset_archive_folder(path,versions,name,version='patch'):
-    "Create a new dataset archive folder in `local_path`"
+def make_dataset_archive_folder(path:str,name:str,versions:List[str]=None,version:str='patch'):
+    "Create a new dataset archive folder in `path`"
     src=Path(path)/name
     if not src.exists():
         raise FileNotFoundError(f'{src} not found')
@@ -64,54 +64,66 @@ def make_dataset_archive_folder(path,versions,name,version='patch'):
     else:
         shutil.copytree(src,archive_folder)
     # TODO: create/update manifest
+    # mf describes archive contents, data owner etc (TODO: manifest details TBC)
     return archive_folder
 
 # Cell
 class StorageClientABC(ABC):
     """Defines functionality common to all storage clients"""
 
-    def __init__(self,storage_name,config_name='secrets/settings.ini'):
+    def __init__(self,storage_name:str,config_name:str='secrets/settings.ini'):
         "Create a new storage client using the `storage_name` section of `config_name`"
         self.config=read_config(storage_name,config_name=config_name)
 
-    def _ls(self,p,result,len_path_prefix=None):
+    def _ls(self,p:Path,result:List[str],len_path_prefix:int=None):
         if len_path_prefix is None: len_path_prefix=len(str(p).replace('\\','/'))
         for _p in p.iterdir():
             if _p.is_dir(): self._ls(_p,result,len_path_prefix)
             else: result.append(str(_p).replace('\\','/')[len_path_prefix+1:])
 
-    def ls(self,what='storage_area'):
+    def ls(self,what:str='storage_area') -> List[str]:
         "Return a list containing the names of files in either `storage_area` or `local_path`"
-        result,p=[],Path(self.config[what])
+        result: List[str]=[]
+        p=Path(self.config[what])
         p.mkdir(parents=True,exist_ok=True)
         self._ls(p,result)
         sorted(result)
         return result
 
     @abstractmethod
-    def download(self,filename):
+    def download(self,filename:str) -> Path:
         "Copy `filename` from `storage_area` to `local_path`"
 
     @abstractmethod
-    def upload(self,filename,overwrite=False):
+    def upload(self,filename:str,overwrite=False) -> Union[Path,str]:
         "Copy `filename` from `local_path` to `storage_area`"
 
-    def ls_versions(self,name,what='storage_area'):
+    def ls_versions(self,name:str,what:str='storage_area') -> Union[List[str],None]:
         "Return a list containing all versions of the specified archive `name`"
         files=[parse_dataset_archive_name(f) for f in self.ls(what)]
         result=[f[1] for f in files if f is not None and f[0]==name]
         if not result: return None
         return sorted(result, key=lambda v: parse_dataset_archive_version(v))
 
-    def upload_dataset(self,name,version='patch'):
+    def upload_dataset(self,name:str,version:str='patch') -> Union[Path,str]:
         "Create a new dataset archive and upload it to `storage_area`"
         archive_folder=make_dataset_archive_folder(
-                self.config['local_path'],self.ls_versions(name),name,version)
+                self.config['local_path'],name,self.ls_versions(name),version)
         archive=shutil.make_archive(archive_folder,'zip',archive_folder)
         return self.upload(Path(archive).name)
 
-    def download_dataset(self,name,version='latest'):
+    def download_dataset(self,name:str,version:str='latest',overwrite:bool=False) -> Path:
         "Download a dataset archive from `storage_area` and extract it to `local_path`"
+        if version=='latest':
+            versions=self.ls_versions(name)
+            if versions is None:
+                raise ValueError('latest version requested but no versions exist in storage area')
+            version=versions[-1]
+        dst=Path(self.config['local_path'])/f'{name}.{version}'
+        if dst.exists() and not overwrite: return dst
+        archive=self.download(f'{name}.{version}.zip')
+        shutil.unpack_archive(archive,dst)
+        return dst
 
 # Cell
 class LocalStorageClient(StorageClientABC):
@@ -129,6 +141,7 @@ class LocalStorageClient(StorageClientABC):
     def download(self,filename,overwrite=False):
         try: self._cp('storage_area','local_path',filename,overwrite)
         except FileExistsError: pass
+        return Path(self.config['local_path'])/filename
 
     def upload(self,filename,overwrite=False):
         return self._cp('local_path','storage_area',filename,overwrite)
@@ -153,10 +166,11 @@ class AzureStorageClient(StorageClientABC):
 
     def download(self,filename,overwrite=False):
         p=Path(self.config['local_path'])/filename
-        if p.exists() and not overwrite: return
+        if p.exists() and not overwrite: return p
         p.parent.mkdir(parents=True,exist_ok=True)
         with open(p, 'wb') as f:
             f.write(self.client.download_blob(filename).readall())
+        return p
 
     def upload(self,filename,overwrite=False):
         p=Path(self.config['local_path'])/filename
