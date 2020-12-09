@@ -91,8 +91,7 @@ class StorageClientABC(ABC):
         p=Path(self.config[what])
         p.mkdir(parents=True,exist_ok=True)
         self._ls(p,result)
-        sorted(result)
-        return result
+        return sorted(result)
 
     @abstractmethod
     def download(self, filename:str) -> Path:
@@ -169,8 +168,7 @@ class AzureStorageClient(StorageClientABC):
     def ls(self,what='storage_area'):
         if what=='local_path': return super().ls(what)
         result=[b.name for b in self.client.list_blobs()]
-        sorted(result)
-        return result
+        return sorted(result)
 
     def download(self,filename,overwrite=False):
         p=Path(self.config['local_path'])/filename
