@@ -11,7 +11,7 @@ from pathlib import Path
 import azure.storage.blob,azure.core.exceptions
 import boto3
 import shutil,re
-from typing import List, Union
+from typing import List,Tuple,Optional,Union
 
 # Cell
 def read_config(section_name:str=None,config_name:str='secrets/settings.ini'):
@@ -25,36 +25,40 @@ def read_config(section_name:str=None,config_name:str='secrets/settings.ini'):
     return dict(config.items(section_name))
 
 # Cell
-def parse_dataset_archive_name(name:str):
+def parse_dataset_archive_name(name:str) -> Optional[Tuple[str,...]]:
     "Returns (name,version) if `name` is a dataset archive name, `None` otherwise"
     match = re.match('^([\./\s\w-]+)\.(\d+\.\d+\.\d+)\.zip$',name)
     return None if match is None else match.group(1,2)
 
 # Cell
-def parse_dataset_archive_version(version:str):
+def parse_dataset_archive_version(version:str) -> List[int]:
+    "Returns (major,minor,patch) if `version` is a valid dataset archive version"
     match = re.match('^(\d+)\.(\d+)\.(\d+)$',version)
-    return None if match is None else [int(s) for s in match.group(1,2,3)]
+    if match is None: raise ValueError(f'Invalid version: {version}')
+    return [int(s) for s in match.group(1,2,3)]
 
 # Cell
 def next_version(versions:List[str]=None,increment:str='patch'):
     "Return the version that should follow the last version in `versions`"
     v=[0,0,0] if versions is None else parse_dataset_archive_version(versions[-1])
     if increment=='patch': v[2]+=1
-    elif increment=='minor': v[1]+=1
-    elif increment=='major': v[0]+=1
+    elif increment=='minor': v[1]+=1;v[2]=0
+    elif increment=='major': v[0]+=1;v[1]=0;v[2]=0
     else: raise ValueError(f'Unknown increment: {increment}')
     return f'{v[0]}.{v[1]}.{v[2]}'
 
 # Cell
-def make_dataset_archive_folder(path:str,name:str,versions:List[str]=None,version:str='patch'):
+def make_dataset_archive_folder(
+        path:str, name:str, versions:List[str]=None, version:str='patch') -> str:
     "Create a new dataset archive folder in `path`"
     src=Path(path)/name
     if not src.exists():
         raise FileNotFoundError(f'{src} not found')
     if version in ['major','minor','patch']:
         version=next_version(versions,version)
-    elif parse_dataset_archive_version(version) is None:
-        raise ValueError(f'Invalid version: {version}')
+    else:
+        parse_dataset_archive_version(version)
+
     archive_folder=Path(path)/'.'.join([name,version])
     if archive_folder.exists():
         raise FileExistsError(f'Archive folder {archive_folder} exists')
@@ -65,23 +69,23 @@ def make_dataset_archive_folder(path:str,name:str,versions:List[str]=None,versio
         shutil.copytree(src,archive_folder)
     # TODO: create/update manifest
     # mf describes archive contents, data owner etc (TODO: manifest details TBC)
-    return archive_folder
+    return f'{path}/{name}.{version}'
 
 # Cell
 class StorageClientABC(ABC):
     """Defines functionality common to all storage clients"""
 
-    def __init__(self,storage_name:str,config_name:str='secrets/settings.ini'):
+    def __init__(self, storage_name:str, config_name:str='secrets/settings.ini'):
         "Create a new storage client using the `storage_name` section of `config_name`"
         self.config=read_config(storage_name,config_name=config_name)
 
-    def _ls(self,p:Path,result:List[str],len_path_prefix:int=None):
+    def _ls(self, p:Path, result:List[str], len_path_prefix:int=None):
         if len_path_prefix is None: len_path_prefix=len(str(p).replace('\\','/'))
         for _p in p.iterdir():
             if _p.is_dir(): self._ls(_p,result,len_path_prefix)
             else: result.append(str(_p).replace('\\','/')[len_path_prefix+1:])
 
-    def ls(self,what:str='storage_area') -> List[str]:
+    def ls(self, what:str='storage_area') -> List[str]:
         "Return a list containing the names of files in either `storage_area` or `local_path`"
         result: List[str]=[]
         p=Path(self.config[what])
@@ -91,28 +95,32 @@ class StorageClientABC(ABC):
         return result
 
     @abstractmethod
-    def download(self,filename:str) -> Path:
+    def download(self, filename:str) -> Path:
         "Copy `filename` from `storage_area` to `local_path`"
 
     @abstractmethod
-    def upload(self,filename:str,overwrite=False) -> Union[Path,str]:
+    def upload(self, filename:str, overwrite=False) -> Union[Path,str]:
         "Copy `filename` from `local_path` to `storage_area`"
 
-    def ls_versions(self,name:str,what:str='storage_area') -> Union[List[str],None]:
+    def _sort_by_dataset_archive_version(self,version):
+        try: return tuple(parse_dataset_archive_version(version))
+        except: return (-1,-1,-1)
+
+    def ls_versions(self, name:str, what:str='storage_area') -> Union[List[str],None]:
         "Return a list containing all versions of the specified archive `name`"
         files=[parse_dataset_archive_name(f) for f in self.ls(what)]
         result=[f[1] for f in files if f is not None and f[0]==name]
         if not result: return None
-        return sorted(result, key=lambda v: parse_dataset_archive_version(v))
+        return sorted(result, key=self._sort_by_dataset_archive_version)
 
-    def upload_dataset(self,name:str,version:str='patch') -> Union[Path,str]:
+    def upload_dataset(self, name:str, version:str='patch') -> Union[Path,str]:
         "Create a new dataset archive and upload it to `storage_area`"
         archive_folder=make_dataset_archive_folder(
                 self.config['local_path'],name,self.ls_versions(name),version)
         archive=shutil.make_archive(archive_folder,'zip',archive_folder)
-        return self.upload(Path(archive).name)
+        return self.upload(f"{archive_folder[len(self.config['local_path'])+1:]}.zip")
 
-    def download_dataset(self,name:str,version:str='latest',overwrite:bool=False) -> Path:
+    def download_dataset(self, name:str, version:str='latest', overwrite:bool=False) -> Path:
         "Download a dataset archive from `storage_area` and extract it to `local_path`"
         if version=='latest':
             versions=self.ls_versions(name)

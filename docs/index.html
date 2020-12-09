@@ -42,56 +42,106 @@ description: "The goal of this project is to make it easy to work with local or 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2>
+<h2 id="Storage-tools-conventions">Storage tools conventions<a class="anchor-link" href="#Storage-tools-conventions"> </a></h2><p>We recommend that you ...</p>
+<h3 id="Use-forward-slashes-on-all-platforms">Use forward slashes on all platforms<a class="anchor-link" href="#Use-forward-slashes-on-all-platforms"> </a></h3><p>Use forward slashes when specifying files, paths and dataset names.</p>
+<h3 id="Avoid-whitespace-and-special-characters-in-file-and-path-names">Avoid whitespace and special characters in file and path names<a class="anchor-link" href="#Avoid-whitespace-and-special-characters-in-file-and-path-names"> </a></h3><h3 id="Use-secrets-and-data-folders">Use secrets and data folders<a class="anchor-link" href="#Use-secrets-and-data-folders"> </a></h3><pre>
+project_root
+  &angrt; data
+  &angrt; secrets
+    &angrt; settings.ini
+</pre><p>Add the following to <code>.gitignore</code></p>
+
+<pre><code>secrets/
+data/</code></pre>
+<p>Add the following to <code>settings.ini</code></p>
+
+<pre><code>[DEFAULT]
+local_path=data</code></pre>
+<p>Running storage_client from your project root will read <code>project_root/secrets/settings.ini</code> and save all local data to <code>project_root/data</code></p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Fill me in please! Don't forget code examples:</p>
+<h2 id="How-to-use-azure-storage">How to use azure storage<a class="anchor-link" href="#How-to-use-azure-storage"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we follow the above conventions and have a project folder containing</p>
+<pre>
+project_root
+  &angrt; data
+    &angrt; mnist
+      &angrt; hand_drawn_digits
+        &angrt; digit0.png
+        &angrt; digit1.png
+        &angrt; ...
+  &angrt; secrets
+    &angrt; settings.ini
+&angrt; main.py
+</pre><p>where <code>settings.ini</code> contains</p>
+
+<pre><code>[DEFAULT]
+local_path=data
+
+[azure_demo]
+storage_type=azure
+conn_str=&lt;A connection string to an Azure Storage account without credential&gt;
+credential=&lt;The credentials with which to authenticate&gt;
+container=&lt;The name of a storage container&gt;</code></pre>
+<p>We can use <code>main.py</code> to</p>
+<h3 id="Create-a-new-storage_client">Create a new storage_client<a class="anchor-link" href="#Create-a-new-storage_client"> </a></h3>
+<pre><code>storage_client=new_storage_client('azure_demo')</code></pre>
+<h3 id="List-files-in-the-azure-container-(remote)">List files in the azure container (remote)<a class="anchor-link" href="#List-files-in-the-azure-container-(remote)"> </a></h3>
+<pre><code>storage_client.ls()</code></pre>
+<h3 id="List-files-in-data-(local)">List files in data (local)<a class="anchor-link" href="#List-files-in-data-(local)"> </a></h3>
+<pre><code>storage_client.ls('local_path')</code></pre>
+<h3 id="Create-a-new-version-of-a-dataset">Create a new version of a dataset<a class="anchor-link" href="#Create-a-new-version-of-a-dataset"> </a></h3>
+<pre><code>storage_client.upload_dataset('mnist/hand_drawn_digits','major')</code></pre>
+<p>Note: If you run <code>storage_client.ls()</code> again, you'll see the new file in the azure container.</p>
+<h3 id="Download-the-latest-version-of-a-dataset">Download the latest version of a dataset<a class="anchor-link" href="#Download-the-latest-version-of-a-dataset"> </a></h3><p>Feel free to delete your local copy of this dataset (from data) to download from azure storage.</p>
+
+<pre><code>storage_client.download_dataset('mnist/hand_drawn_digits')</code></pre>
+<p>Note: If you run <code>storage_client.ls('local_path')</code> again, you'll see the dataset in data.</p>
 
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>2</pre>
-</div>
-
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>See <a href="https://docs.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.blobserviceclient?view=azure-python">BlobServiceClient docs</a> for more details on the settings used in <code>settings.ini</code></p>
+<ul>
+<li><code>from_connection_string</code> (<code>conn_str</code> and <code>credential</code>)</li>
+<li><code>get_container_client</code> (<code>container</code>)</li>
+</ul>
 
 </div>
 </div>
-
 </div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Developers">Developers<a class="anchor-link" href="#Developers"> </a></h1>
+<pre><code>git config --global core.autocrlf input</code></pre>
+
 <pre><code>!pip install fastcore
 !pip install boto3
 !pip install azure-storage-blob</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Type-checking-with-mypy">Type checking with mypy<a class="anchor-link" href="#Type-checking-with-mypy"> </a></h2>
+<pre><code>!pip install mypy</code></pre>
+<p>Then from the storage_tools project folder</p>
+
+<pre><code>nbdev_build_lib
+mypy storage_tools/core.py</code></pre>
+<p>For now, I'm ignoring the "Skipping analyzing 'azure': found module but no type hints or library stubs" error</p>
 
 </div>
 </div>
