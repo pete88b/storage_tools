@@ -129,7 +129,7 @@ class StorageClientABC(ABC):
         dst=Path(self.config['local_path'])/f'{name}.{version}'
         if dst.exists() and not overwrite: return dst
         archive=self.download(f'{name}.{version}.zip')
-        shutil.unpack_archive(archive,dst)
+        shutil.unpack_archive(str(archive),dst)
         return dst
 
 # Cell
