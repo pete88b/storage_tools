@@ -44,7 +44,7 @@ description: "The goal of this project is to make it easy to work with local or 
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Storage-tools-conventions">Storage tools conventions<a class="anchor-link" href="#Storage-tools-conventions"> </a></h2><p>We recommend that you ...</p>
 <h3 id="Use-forward-slashes-on-all-platforms">Use forward slashes on all platforms<a class="anchor-link" href="#Use-forward-slashes-on-all-platforms"> </a></h3><p>Use forward slashes when specifying files, paths and dataset names.</p>
-<h3 id="Avoid-whitespace-and-special-characters-in-file-and-path-names">Avoid whitespace and special characters in file and path names<a class="anchor-link" href="#Avoid-whitespace-and-special-characters-in-file-and-path-names"> </a></h3><h3 id="Use-secrets-and-data-folders">Use secrets and data folders<a class="anchor-link" href="#Use-secrets-and-data-folders"> </a></h3><pre>
+<h3 id="Avoid-whitespace-and-special-characters-in-file-and-path-names">Avoid whitespace and special characters in file and path names<a class="anchor-link" href="#Avoid-whitespace-and-special-characters-in-file-and-path-names"> </a></h3><h3 id="Use-folders-for-secrets-and-data">Use folders for secrets and data<a class="anchor-link" href="#Use-folders-for-secrets-and-data"> </a></h3><pre>
 project_root
   &angrt; data
   &angrt; secrets
@@ -117,6 +117,29 @@ container=&lt;The name of a storage container&gt;</code></pre>
 <li><code>from_connection_string</code> (<code>conn_str</code> and <code>credential</code>)</li>
 <li><code>get_container_client</code> (<code>container</code>)</li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-to-use-AWS-storage">How to use AWS storage<a class="anchor-link" href="#How-to-use-AWS-storage"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It's the same as Azure except <code>settings.ini</code> contains</p>
+
+<pre><code>[DEFAULT]
+local_path=data
+
+[aws_demo]
+storage_type=aws
+service_name=s3
+aws_access_key_id=&lt;An AWS access key ID&gt;
+aws_secret_access_key=&lt;An AWS access key&gt;
+bucket=&lt;The name of an AWS bucket that the access key is allowed to read from and write to&gt;</code></pre>
 
 </div>
 </div>

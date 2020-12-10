@@ -16,7 +16,7 @@ Use forward slashes when specifying files, paths and dataset names.
 
 ### Avoid whitespace and special characters in file and path names
 
-### Use secrets and data folders
+### Use folders for secrets and data
 
 <pre>
 project_root
@@ -110,6 +110,22 @@ Note: If you run `storage_client.ls('local_path')` again, you'll see the dataset
 See [BlobServiceClient docs](https://docs.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.blobserviceclient?view=azure-python) for more details on the settings used in `settings.ini`
 - `from_connection_string` (`conn_str` and `credential`)
 - `get_container_client` (`container`)
+
+## How to use AWS storage
+
+It's the same as Azure except `settings.ini` contains
+
+```
+[DEFAULT]
+local_path=data
+
+[aws_demo]
+storage_type=aws
+service_name=s3
+aws_access_key_id=<An AWS access key ID>
+aws_secret_access_key=<An AWS access key>
+bucket=<The name of an AWS bucket that the access key is allowed to read from and write to>
+```
 
 # Developers
 
