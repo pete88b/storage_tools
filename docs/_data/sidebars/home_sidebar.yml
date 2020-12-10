@@ -8,10 +8,13 @@ entries:
   - folderitems:
     - output: web,pdf
       title: Overview
-      url: /demo
+      url: /
     - output: web,pdf
       title: Core
       url: /core
+    - output: web,pdf
+      title: Demo
+      url: /demo
     output: web
     title: storage_tools
   output: web

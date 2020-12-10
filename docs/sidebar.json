@@ -1,6 +1,7 @@
 {
   "storage_tools": {
-    "Overview": "/demo",
-    "Core": "/core"
+    "Overview": "/",
+    "Core": "/core",
+    "Demo": "/demo"
   }
 }
