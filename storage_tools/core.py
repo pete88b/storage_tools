@@ -49,6 +49,7 @@ def next_version(versions:List[str]=None,increment:str='patch'):
 
 # Cell
 def sha256(file:Union[Path,str]) -> str:
+    "Return the secure hash (as a hex digest) of the specified file"
     m = hashlib.sha256()
     with open(file,'rb') as f: m.update(f.read())
     return m.hexdigest()
@@ -77,7 +78,7 @@ def make_or_update_manifest(archive_folder:str):
     with open(mf,'w') as f: json.dump(m,f)
 
 def check_archive(archive_folder:str):
-    "Check that all files listed in manifest.json have the correct sha hash"
+    "Check that all files listed in manifest.json have the correct secure hash"
     p,mf,m=_get_manifest(archive_folder)
     for file in m['files']:
         expected,actual=file['sha256'],sha256(p/file['file'])
@@ -159,7 +160,9 @@ class StorageClientABC(ABC):
                 raise ValueError('latest version requested but no versions exist in storage area')
             version=versions[-1]
         dst=Path(self.config['local_path'])/f'{name}.{version}'
-        if dst.exists() and not overwrite: return dst
+        if dst.exists():
+            if not overwrite: return dst
+            else: shutil.rmtree(dst)
         archive=self.download(f'{name}.{version}.zip')
         shutil.unpack_archive(str(archive),dst)
         check_archive(dst)

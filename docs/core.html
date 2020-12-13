@@ -270,6 +270,7 @@ description: "Core tools for working with storage."
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="sha256" class="doc_header"><code>sha256</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sha256</code>(<strong><code>file</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
 </blockquote>
+<p>Return the secure hash (as a hex digest) of the specified file</p>
 
 </div>
 
@@ -316,7 +317,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_or_update_manifest" class="doc_header"><code>make_or_update_manifest</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L67" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_or_update_manifest</code>(<strong><code>archive_folder</code></strong>:<code>str</code>)</p>
+<h4 id="make_or_update_manifest" class="doc_header"><code>make_or_update_manifest</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L68" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_or_update_manifest</code>(<strong><code>archive_folder</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Create or update a manifest in <code>archive_folder</code></p>
 
@@ -341,9 +342,9 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_archive" class="doc_header"><code>check_archive</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_archive</code>(<strong><code>archive_folder</code></strong>:<code>str</code>)</p>
+<h4 id="check_archive" class="doc_header"><code>check_archive</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L80" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_archive</code>(<strong><code>archive_folder</code></strong>:<code>str</code>)</p>
 </blockquote>
-<p>Check that all files listed in manifest.json have the correct sha hash</p>
+<p>Check that all files listed in manifest.json have the correct secure hash</p>
 
 </div>
 
@@ -373,7 +374,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_dataset_archive_folder" class="doc_header"><code>make_dataset_archive_folder</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L88" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_dataset_archive_folder</code>(<strong><code>path</code></strong>:<code>str</code>, <strong><code>name</code></strong>:<code>str</code>, <strong><code>versions</code></strong>:<code>List</code>[<code>str</code>]=<em><code>None</code></em>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
+<h4 id="make_dataset_archive_folder" class="doc_header"><code>make_dataset_archive_folder</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L89" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_dataset_archive_folder</code>(<strong><code>path</code></strong>:<code>str</code>, <strong><code>name</code></strong>:<code>str</code>, <strong><code>versions</code></strong>:<code>List</code>[<code>str</code>]=<em><code>None</code></em>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
 </blockquote>
 <p>Create a new dataset archive folder in <code>path</code></p>
 
@@ -455,7 +456,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="StorageClientABC" class="doc_header"><code>class</code> <code>StorageClientABC</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L111" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>StorageClientABC</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>) :: <code>ABC</code></p>
+<h2 id="StorageClientABC" class="doc_header"><code>class</code> <code>StorageClientABC</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L112" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>StorageClientABC</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>) :: <code>ABC</code></p>
 </blockquote>
 <p>Defines functionality common to all storage clients</p>
 
@@ -480,7 +481,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.upload_dataset" class="doc_header"><code>StorageClientABC.upload_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L147" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.upload_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
+<h4 id="StorageClientABC.upload_dataset" class="doc_header"><code>StorageClientABC.upload_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L148" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.upload_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
 </blockquote>
 <p>Create a new dataset archive and upload it to <code>storage_area</code></p>
 
@@ -525,6 +526,7 @@ description: "Core tools for working with storage."
 <li>create a manifest in this folder</li>
 <li>create a zip archive, called <code>[name].[version].zip</code>, of this folder</li>
 <li>upload the zip archive to remote storage</li>
+<li>return the location of the dataset in remote storage</li>
 </ul>
 <p>Why no <code>overwrite</code> option?</p>
 <ul>
@@ -532,10 +534,64 @@ description: "Core tools for working with storage."
 <li>as we want to be able to re-run old experiments using the data as it was</li>
 </ul>
 </li>
-<li>bad archives could be deleted via storage API (e.g. <code>storage_client.client.delete_blob('test.0.0.1.zip')</code>) or via storage bowsers<ul>
+<li>bad archives could be deleted via storage API (e.g. <code>storage_client.client.delete_blob('test.0.0.1.zip')</code>) or via storage browsers<ul>
 <li>we might want to add a soft delete, archive status etc to handle this kind of thing?</li>
 </ul>
 </li>
+</ul>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="StorageClientABC.download_dataset" class="doc_header"><code>StorageClientABC.download_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L155" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.download_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'latest'</code></em>, <strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Download a dataset archive from <code>storage_area</code> and extract it to <code>local_path</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><code>name</code><ul>
+<li>dataset name</li>
+</ul>
+</li>
+<li><code>version</code><ul>
+<li>"lates" download the latest version of the dataset</li>
+<li>version literal that matches <code>\d+\.\d+\.\d+</code> (e.g. "1.0.45")</li>
+</ul>
+</li>
+<li><code>overwrite</code><ul>
+<li>If <code>False</code> and the dataset exists in "local_path", this is a no op</li>
+<li>If <code>True</code> and the dataset exists in "local_path", delete the dataset and re-download</li>
+</ul>
+</li>
+</ul>
+<p><code>download_dataset</code> will;</p>
+<ul>
+<li>download a zip archive, called <code>[name].[version].zip</code>, from remote storage</li>
+<li>extract it to <code>[local_path]/[name].[version]</code></li>
+<li>check that all files listed in manifest.json have the correct secure hash</li>
+<li>return the location of the dataset in local storage</li>
 </ul>
 
 </div>
@@ -559,7 +615,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LocalStorageClient" class="doc_header"><code>class</code> <code>LocalStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L169" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LocalStorageClient</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h2 id="LocalStorageClient" class="doc_header"><code>class</code> <code>LocalStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L172" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LocalStorageClient</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
 <p>Storage client that uses the local filesystem for both <code>storage_area</code> and <code>local_path</code></p>
 
@@ -616,7 +672,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="AzureStorageClient" class="doc_header"><code>class</code> <code>AzureStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L190" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AzureStorageClient</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h2 id="AzureStorageClient" class="doc_header"><code>class</code> <code>AzureStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L193" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AzureStorageClient</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
 <p>Storage client that uses Azure for <code>storage_area</code> and the local filesystem <code>local_path</code></p>
 
@@ -655,7 +711,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="AwsStorageClient" class="doc_header"><code>class</code> <code>AwsStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L224" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AwsStorageClient</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h2 id="AwsStorageClient" class="doc_header"><code>class</code> <code>AwsStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L227" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AwsStorageClient</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
 <p>Storage client that uses AWS for <code>storage_area</code> and the local filesystem <code>local_path</code></p>
 
@@ -695,7 +751,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L265" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets/settings.ini'</code></em>)</p>
+<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L268" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets/settings.ini'</code></em>)</p>
 </blockquote>
 <p>Returns a storage client based on the configured <code>storage_type</code></p>
 
@@ -803,6 +859,8 @@ description: "Core tools for working with storage."
 <span class="n">_rmtree</span><span class="p">(</span><span class="s1">&#39;test/local_path/a.3.0.1&#39;</span><span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;test/local_path/a.3.0.1&#39;</span><span class="p">),</span><span class="n">storage_client</span><span class="o">.</span><span class="n">download_dataset</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">))</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;test/local_path/a.3.0.0&#39;</span><span class="p">),</span><span class="n">storage_client</span><span class="o">.</span><span class="n">download_dataset</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">))</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;test/local_path/a.3.0.0&#39;</span><span class="p">),</span><span class="n">storage_client</span><span class="o">.</span><span class="n">download_dataset</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">))</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;test/local_path/a.3.0.0&#39;</span><span class="p">),</span><span class="n">storage_client</span><span class="o">.</span><span class="n">download_dataset</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">,</span><span class="kc">True</span><span class="p">))</span>
 <span class="c1"># check manifest was created and downloaded as part of the dataset</span>
 <span class="k">assert</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;test/local_path/a.3.0.0/manifest.json&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
 <span class="n">check_archive</span><span class="p">(</span><span class="s1">&#39;test/local_path/a.3.0.0&#39;</span><span class="p">)</span>
