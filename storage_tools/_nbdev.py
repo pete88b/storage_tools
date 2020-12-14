@@ -14,9 +14,12 @@ index = {"read_config": "00_core.ipynb",
          "LocalStorageClient": "00_core.ipynb",
          "AzureStorageClient": "00_core.ipynb",
          "AwsStorageClient": "00_core.ipynb",
-         "new_storage_client": "00_core.ipynb"}
+         "new_storage_client": "00_core.ipynb",
+         "upload_dataset": "50_cli.ipynb",
+         "download_dataset": "50_cli.ipynb"}
 
-modules = ["core.py"]
+modules = ["core.py",
+           "cli.py"]
 
 doc_url = "https://pete88b.github.io/storage_tools/"
 

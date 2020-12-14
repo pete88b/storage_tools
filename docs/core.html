@@ -317,7 +317,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_or_update_manifest" class="doc_header"><code>make_or_update_manifest</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L68" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_or_update_manifest</code>(<strong><code>archive_folder</code></strong>:<code>str</code>)</p>
+<h4 id="make_or_update_manifest" class="doc_header"><code>make_or_update_manifest</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L68" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_or_update_manifest</code>(<strong><code>archive_folder</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
 </blockquote>
 <p>Create or update a manifest in <code>archive_folder</code></p>
 
@@ -342,7 +342,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_archive" class="doc_header"><code>check_archive</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L80" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_archive</code>(<strong><code>archive_folder</code></strong>:<code>str</code>)</p>
+<h4 id="check_archive" class="doc_header"><code>check_archive</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L80" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_archive</code>(<strong><code>archive_folder</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
 </blockquote>
 <p>Check that all files listed in manifest.json have the correct secure hash</p>
 
@@ -481,6 +481,81 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
+<h4 id="StorageClientABC.__init__" class="doc_header"><code>StorageClientABC.__init__</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L115" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.__init__</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>)</p>
+</blockquote>
+<p>Create a new storage client using the <code>storage_name</code> section of <code>config_name</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="StorageClientABC.ls" class="doc_header"><code>StorageClientABC.ls</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L119" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls</code>(<strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>, <strong><code>name_starts_with</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Return a list containing the names of files in either <code>storage_area</code> or <code>local_path</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="StorageClientABC.ls_versions" class="doc_header"><code>StorageClientABC.ls_versions</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L141" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls_versions</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>)</p>
+</blockquote>
+<p>Return a list containing all versions of the specified archive <code>name</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
 <h4 id="StorageClientABC.upload_dataset" class="doc_header"><code>StorageClientABC.upload_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L148" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.upload_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
 </blockquote>
 <p>Create a new dataset archive and upload it to <code>storage_area</code></p>
@@ -516,7 +591,7 @@ description: "Core tools for working with storage."
 </ul>
 </li>
 </ul>
-<p><code>upload_dataset</code> will;</p>
+<p><a href="/storage_tools/cli#upload_dataset"><code>upload_dataset</code></a> will;</p>
 <ul>
 <li>create a folder <code>[local_path]/[name].[version]</code><ul>
 <li>if this folder already exists, as error will be raised</li>
@@ -586,7 +661,7 @@ description: "Core tools for working with storage."
 </ul>
 </li>
 </ul>
-<p><code>download_dataset</code> will;</p>
+<p><a href="/storage_tools/cli#download_dataset"><code>download_dataset</code></a> will;</p>
 <ul>
 <li>download a zip archive, called <code>[name].[version].zip</code>, from remote storage</li>
 <li>extract it to <code>[local_path]/[name].[version]</code></li>
@@ -686,13 +761,6 @@ description: "Core tools for working with storage."
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>think about using ~/.aws/credentials</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -751,7 +819,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L268" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>, <strong><code>config_name</code></strong>=<em><code>'secrets/settings.ini'</code></em>)</p>
+<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L268" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>)</p>
 </blockquote>
 <p>Returns a storage client based on the configured <code>storage_type</code></p>
 

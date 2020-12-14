@@ -65,7 +65,7 @@ def _get_manifest(archive_folder):
         m={}
     return p,mf,m
 
-def make_or_update_manifest(archive_folder:str):
+def make_or_update_manifest(archive_folder:Union[Path,str]):
     "Create or update a manifest in `archive_folder`"
     p,mf,m=_get_manifest(archive_folder)
     m['datetime']=datetime.datetime.utcnow().isoformat()
@@ -75,9 +75,9 @@ def make_or_update_manifest(archive_folder:str):
         m['files'].append(dict(
             file=str(f).replace('\\','/')[len_p+1:],
             sha256=sha256(f)))
-    with open(mf,'w') as f: json.dump(m,f)
+    with open(mf,'w') as f: json.dump(m,f,indent=2,sort_keys=True)
 
-def check_archive(archive_folder:str):
+def check_archive(archive_folder:Union[Path,str]):
     "Check that all files listed in manifest.json have the correct secure hash"
     p,mf,m=_get_manifest(archive_folder)
     for file in m['files']:
@@ -265,7 +265,7 @@ class AwsStorageClient(StorageClientABC):
         return result
 
 # Cell
-def new_storage_client(storage_name,config_name='secrets/settings.ini'):
+def new_storage_client(storage_name:str,config_name:str='secrets/settings.ini'):
     "Returns a storage client based on the configured `storage_type`"
     config=read_config(storage_name,config_name=config_name)
     storage_type=config['storage_type']

@@ -15,6 +15,9 @@ entries:
     - output: web,pdf
       title: Demo
       url: /demo
+    - output: web,pdf
+      title: CLI
+      url: /cli
     output: web
     title: storage_tools
   output: web

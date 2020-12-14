@@ -2,6 +2,26 @@
 > The goal of this project is to make it easy to work with local or cloud storage as part of a data science workflow.
 
 
+## Key Features
+
+### You can access a dataset with a single command ...
+
+e.g. `download_dataset azure_demo mnist/hand_drawn_digits`
+
+### ... or a few lines of python
+
+You can import the storage tools module, create a client and download your dataset.
+
+### You don't put secret keys in your code
+
+Secret keys live in their own files and the storage tool client knows how to find them.
+
+### Datasets are version controlled
+
+Storage tools makes it easy to 
+- manage multiple versions of a dataset and
+- know which version of the dataset you are working with locally.
+
 ## Install
 
 `pip install storage_tools`

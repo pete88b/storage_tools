@@ -2,6 +2,7 @@
   "storage_tools": {
     "Overview": "/",
     "Core": "/core",
-    "Demo": "/demo"
+    "Demo": "/demo",
+    "CLI": "/cli"
   }
 }
