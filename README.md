@@ -10,11 +10,11 @@ e.g. `download_dataset azure_demo mnist/hand_drawn_digits`
 
 ### ... or a few lines of python
 
-You can import the storage tools module, create a client and download your dataset.
+Just import the storage tools core module, create a client and download your dataset.
 
 ### You don't put secret keys in your code
 
-Secret keys live in their own files and the storage tool client knows how to find them.
+Secret keys live in their own files and storage tools knows how to find them.
 
 ### Datasets are version controlled
 
