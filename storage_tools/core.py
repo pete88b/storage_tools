@@ -112,9 +112,9 @@ def make_dataset_archive_folder(
 class StorageClientABC(ABC):
     """Defines functionality common to all storage clients"""
 
-    def __init__(self, storage_name:str, config_name:str='secrets/settings.ini'):
-        "Create a new storage client using the `storage_name` section of `config_name`"
-        self.config=read_config(storage_name,config_name=config_name)
+    def __init__(self, config:dict):
+        "Create a new storage client using the specified `config`"
+        self.config=config
 
     def ls(self, what:str='storage_area',name_starts_with:str=None) -> List[str]:
         "Return a list containing the names of files in either `storage_area` or `local_path`"
@@ -269,7 +269,7 @@ def new_storage_client(storage_name:str,config_name:str='secrets/settings.ini'):
     "Returns a storage client based on the configured `storage_type`"
     config=read_config(storage_name,config_name=config_name)
     storage_type=config['storage_type']
-    if storage_type=='local': return LocalStorageClient(storage_name, config_name)
-    elif storage_type=='azure': return AzureStorageClient(storage_name, config_name)
-    elif storage_type=='aws': return AwsStorageClient(storage_name, config_name)
+    if storage_type=='local': return LocalStorageClient(config)
+    elif storage_type=='azure': return AzureStorageClient(config)
+    elif storage_type=='aws': return AwsStorageClient(config)
     else: raise ValueError(f'Unknown storage_type: {storage_type}')
