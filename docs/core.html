@@ -54,6 +54,7 @@ description: "Core tools for working with storage."
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="read_config" class="doc_header"><code>read_config</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L17" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>read_config</code>(<strong><code>section_name</code></strong>:<code>str</code>=<em><code>None</code></em>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>)</p>
 </blockquote>
+<p>Read the INI file <code>config_name</code> and return a dict for <code>section_name</code> if specified</p>
 
 </div>
 
@@ -65,6 +66,13 @@ description: "Core tools for working with storage."
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If <code>section_name</code> is not specified, this function will return the <code>ConfigParser</code> used to read the INI file.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -103,7 +111,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="parse_dataset_archive_name" class="doc_header"><code>parse_dataset_archive_name</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L28" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse_dataset_archive_name</code>(<strong><code>name</code></strong>:<code>str</code>)</p>
+<h4 id="parse_dataset_archive_name" class="doc_header"><code>parse_dataset_archive_name</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L29" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse_dataset_archive_name</code>(<strong><code>name</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Returns (name,version) if <code>name</code> is a dataset archive name, <code>None</code> otherwise</p>
 
@@ -161,7 +169,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="parse_dataset_archive_version" class="doc_header"><code>parse_dataset_archive_version</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L34" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse_dataset_archive_version</code>(<strong><code>version</code></strong>:<code>str</code>)</p>
+<h4 id="parse_dataset_archive_version" class="doc_header"><code>parse_dataset_archive_version</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse_dataset_archive_version</code>(<strong><code>version</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Returns (major,minor,patch) if <code>version</code> is a valid dataset archive version</p>
 
@@ -213,7 +221,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="next_version" class="doc_header"><code>next_version</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L41" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>next_version</code>(<strong><code>versions</code></strong>:<code>List</code>[<code>str</code>]=<em><code>None</code></em>, <strong><code>increment</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
+<h4 id="next_version" class="doc_header"><code>next_version</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L42" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>next_version</code>(<strong><code>versions</code></strong>:<code>List</code>[<code>str</code>]=<em><code>None</code></em>, <strong><code>increment</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
 </blockquote>
 <p>Return the version that should follow the last version in <code>versions</code></p>
 
@@ -268,7 +276,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sha256" class="doc_header"><code>sha256</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sha256</code>(<strong><code>file</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
+<h4 id="sha256" class="doc_header"><code>sha256</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L52" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sha256</code>(<strong><code>file</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
 </blockquote>
 <p>Return the secure hash (as a hex digest) of the specified file</p>
 
@@ -317,7 +325,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_or_update_manifest" class="doc_header"><code>make_or_update_manifest</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L68" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_or_update_manifest</code>(<strong><code>archive_folder</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
+<h4 id="make_or_update_manifest" class="doc_header"><code>make_or_update_manifest</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L69" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_or_update_manifest</code>(<strong><code>archive_folder</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
 </blockquote>
 <p>Create or update a manifest in <code>archive_folder</code></p>
 
@@ -342,7 +350,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_archive" class="doc_header"><code>check_archive</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L80" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_archive</code>(<strong><code>archive_folder</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
+<h4 id="check_archive" class="doc_header"><code>check_archive</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L81" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_archive</code>(<strong><code>archive_folder</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
 </blockquote>
 <p>Check that all files listed in manifest.json have the correct secure hash</p>
 
@@ -374,7 +382,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_dataset_archive_folder" class="doc_header"><code>make_dataset_archive_folder</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L89" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_dataset_archive_folder</code>(<strong><code>path</code></strong>:<code>str</code>, <strong><code>name</code></strong>:<code>str</code>, <strong><code>versions</code></strong>:<code>List</code>[<code>str</code>]=<em><code>None</code></em>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
+<h4 id="make_dataset_archive_folder" class="doc_header"><code>make_dataset_archive_folder</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_dataset_archive_folder</code>(<strong><code>path</code></strong>:<code>str</code>, <strong><code>name</code></strong>:<code>str</code>, <strong><code>versions</code></strong>:<code>List</code>[<code>str</code>]=<em><code>None</code></em>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
 </blockquote>
 <p>Create a new dataset archive folder in <code>path</code></p>
 
@@ -473,7 +481,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="StorageClientABC" class="doc_header"><code>class</code> <code>StorageClientABC</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L112" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>StorageClientABC</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <code>ABC</code></p>
+<h2 id="StorageClientABC" class="doc_header"><code>class</code> <code>StorageClientABC</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L113" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>StorageClientABC</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <code>ABC</code></p>
 </blockquote>
 <p>Defines functionality common to all storage clients</p>
 
@@ -498,7 +506,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.__init__" class="doc_header"><code>StorageClientABC.__init__</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L115" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.__init__</code>(<strong><code>config</code></strong>:<code>dict</code>)</p>
+<h4 id="StorageClientABC.__init__" class="doc_header"><code>StorageClientABC.__init__</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L116" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.__init__</code>(<strong><code>config</code></strong>:<code>dict</code>)</p>
 </blockquote>
 <p>Create a new storage client using the specified <code>config</code></p>
 
@@ -523,7 +531,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.ls" class="doc_header"><code>StorageClientABC.ls</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L119" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls</code>(<strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>, <strong><code>name_starts_with</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
+<h4 id="StorageClientABC.ls" class="doc_header"><code>StorageClientABC.ls</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L127" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls</code>(<strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>, <strong><code>name_starts_with</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return a list containing the names of files in either <code>storage_area</code> or <code>local_path</code></p>
 
@@ -548,7 +556,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.ls_versions" class="doc_header"><code>StorageClientABC.ls_versions</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L141" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls_versions</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>)</p>
+<h4 id="StorageClientABC.ls_versions" class="doc_header"><code>StorageClientABC.ls_versions</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L149" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls_versions</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>)</p>
 </blockquote>
 <p>Return a list containing all versions of the specified archive <code>name</code></p>
 
@@ -573,7 +581,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.upload_dataset" class="doc_header"><code>StorageClientABC.upload_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L148" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.upload_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
+<h4 id="StorageClientABC.upload_dataset" class="doc_header"><code>StorageClientABC.upload_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L156" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.upload_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
 </blockquote>
 <p>Create a new dataset archive and upload it to <code>storage_area</code></p>
 
@@ -646,7 +654,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.download_dataset" class="doc_header"><code>StorageClientABC.download_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L155" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.download_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'latest'</code></em>, <strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+<h4 id="StorageClientABC.download_dataset" class="doc_header"><code>StorageClientABC.download_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L169" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.download_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'latest'</code></em>, <strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Download a dataset archive from <code>storage_area</code> and extract it to <code>local_path</code></p>
 
@@ -707,7 +715,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LocalStorageClient" class="doc_header"><code>class</code> <code>LocalStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L172" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LocalStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h2 id="LocalStorageClient" class="doc_header"><code>class</code> <code>LocalStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L186" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LocalStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
 <p>Storage client that uses the local filesystem for both <code>storage_area</code> and <code>local_path</code></p>
 
@@ -737,6 +745,54 @@ description: "Core tools for working with storage."
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">storage_client</span><span class="o">=</span><span class="n">LocalStorageClient</span><span class="p">(</span><span class="n">test_config</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<span class="n">test_fail</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;bad_key&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="StorageClientABC.cfg" class="doc_header"><code>StorageClientABC.cfg</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L120" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.cfg</code>(<strong><code>key</code></strong>, <strong><code>default</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Return a value via <code>self.config.get</code> optionally checking that the value is of <code>dtype</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_type&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;bad_key&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">None</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_type&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<span class="n">test_fail</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_type&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;bad_key&#39;</span><span class="p">,</span><span class="s1">&#39;but its ok&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;but its ok&#39;</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_type&#39;</span><span class="p">,</span><span class="s1">&#39;default is not used&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
 </pre></div>
 
     </div>
@@ -764,7 +820,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="AzureStorageClient" class="doc_header"><code>class</code> <code>AzureStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L193" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AzureStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h2 id="AzureStorageClient" class="doc_header"><code>class</code> <code>AzureStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L207" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AzureStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
 <p>Storage client that uses Azure for <code>storage_area</code> and the local filesystem <code>local_path</code></p>
 
@@ -796,7 +852,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="AwsStorageClient" class="doc_header"><code>class</code> <code>AwsStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L227" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AwsStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h2 id="AwsStorageClient" class="doc_header"><code>class</code> <code>AwsStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L241" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AwsStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
 <p>Storage client that uses AWS for <code>storage_area</code> and the local filesystem <code>local_path</code></p>
 
@@ -836,7 +892,7 @@ description: "Core tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L268" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>)</p>
+<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L282" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>)</p>
 </blockquote>
 <p>Returns a storage client based on the configured <code>storage_type</code></p>
 
@@ -935,10 +991,12 @@ description: "Core tools for working with storage."
 <span class="n">test_files</span><span class="o">=</span><span class="n">_make_local_test_data</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">_t</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span><span class="n">upload_name</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;patch&#39;</span><span class="p">):</span>
-    <span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{test_config[&#39;storage_area&#39;]}</span><span class="s2">/</span><span class="si">{expected}</span><span class="s2">&quot;</span><span class="p">),</span><span class="n">storage_client</span><span class="o">.</span><span class="n">upload_dataset</span><span class="p">(</span><span class="n">upload_name</span><span class="p">,</span><span class="n">version</span><span class="p">))</span>
+    <span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;storage_area&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">expected</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">upload_dataset</span><span class="p">(</span><span class="n">upload_name</span><span class="p">,</span><span class="n">version</span><span class="p">))</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;test_data.txt.0.0.1.zip&#39;</span><span class="p">,</span><span class="s1">&#39;test_data.txt&#39;</span><span class="p">)</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;sub.0.0.1.zip&#39;</span><span class="p">,</span><span class="s1">&#39;sub&#39;</span><span class="p">)</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;sub/test_data.0.0.2.txt.0.0.1.zip&#39;</span><span class="p">,</span><span class="s1">&#39;sub/test_data.0.0.2.txt&#39;</span><span class="p">)</span>
+<span class="c1"># switch off compression when creating zip archives</span>
+<span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;compression_level&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;a.3.0.0.zip&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">)</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;a.3.0.1.zip&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
 <span class="c1"># TODO: check zip contents</span>

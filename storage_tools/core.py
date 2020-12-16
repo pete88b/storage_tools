@@ -10,11 +10,12 @@ from configparser import ConfigParser
 from pathlib import Path
 import azure.storage.blob,azure.core.exceptions
 import boto3
-import shutil,re,json,hashlib,datetime
+import zlib,shutil,re,json,hashlib,datetime
 from typing import List,Tuple,Optional,Union
 
 # Cell
 def read_config(section_name:str=None,config_name:str='secrets/settings.ini'):
+    "Read the INI file `config_name` and return a dict for `section_name` if specified"
     config_path=Path(config_name)
     config=ConfigParser()
     config.read(config_path)
@@ -116,6 +117,13 @@ class StorageClientABC(ABC):
         "Create a new storage client using the specified `config`"
         self.config=config
 
+    def cfg(self,key,default=None,dtype=None):
+        "Return a value via `self.config.get` optionally checking that the value is of `dtype`"
+        result=self.config.get(key,default)
+        if dtype is not None and not isinstance(result,dtype):
+            raise ValueError(f'Config[{key}] should be a {dtype} but we found {result} which is a {type(result)}')
+        return result
+
     def ls(self, what:str='storage_area',name_starts_with:str=None) -> List[str]:
         "Return a list containing the names of files in either `storage_area` or `local_path`"
         p=Path(self.config[what])
@@ -149,7 +157,13 @@ class StorageClientABC(ABC):
         "Create a new dataset archive and upload it to `storage_area`"
         archive_folder=make_dataset_archive_folder(
                 self.config['local_path'],name,self.ls_versions(name),version)
-        archive=shutil.make_archive(archive_folder,'zip',archive_folder)
+        default_compression=zlib.Z_DEFAULT_COMPRESSION
+        compression=self.cfg('compression_level',default_compression,int)
+        try:
+            zlib.Z_DEFAULT_COMPRESSION=int(compression)
+            shutil.make_archive(archive_folder,'zip',archive_folder)
+        finally:
+            zlib.Z_DEFAULT_COMPRESSION=default_compression
         return self.upload(f"{archive_folder[len(self.config['local_path'])+1:]}.zip")
 
     def download_dataset(self, name:str, version:str='latest', overwrite:bool=False) -> Path:
