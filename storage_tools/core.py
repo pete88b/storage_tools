@@ -244,7 +244,7 @@ class AwsStorageClient(StorageClientABC):
         result=[o['Key'] for o in objects['Contents'] if o['Size']>0]
         return sorted(result)
 
-    def download(self,filename):
+    def download(self,filename,overwrite=False):
         p=Path(self.config['local_path'])/filename
         if p.exists() and not overwrite: return p
         p.parent.mkdir(parents=True,exist_ok=True)
