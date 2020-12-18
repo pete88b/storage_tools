@@ -117,7 +117,7 @@ class StorageClientABC(ABC):
         "Create a new storage client using the specified `config`"
         self.config=config
 
-    def cfg(self,key,default=None,dtype=None):
+    def config_get(self,key,default=None,dtype=None):
         "Return a value via `self.config.get` optionally checking that the value is of `dtype`"
         result=self.config.get(key,default)
         if dtype is not None and not isinstance(result,dtype):
@@ -158,7 +158,7 @@ class StorageClientABC(ABC):
         archive_folder=make_dataset_archive_folder(
                 self.config['local_path'],name,self.ls_versions(name),version)
         default_compression=zlib.Z_DEFAULT_COMPRESSION
-        compression=self.cfg('compression_level',default_compression,int)
+        compression=self.config_get('compression_level',default_compression,int)
         try:
             zlib.Z_DEFAULT_COMPRESSION=int(compression)
             shutil.make_archive(archive_folder,'zip',archive_folder)
