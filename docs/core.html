@@ -83,7 +83,8 @@ description: "Core tools for working with storage."
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">read_config</span><span class="p">(),</span><span class="n">ConfigParser</span><span class="p">)</span>
 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">read_config</span><span class="p">()[</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">],</span><span class="n">SectionProxy</span><span class="p">)</span>
 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">read_config</span><span class="p">(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">),</span><span class="nb">dict</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">read_config</span><span class="p">(</span><span class="s1">&#39;local_cwd&#39;</span><span class="p">,</span><span class="n">config_name</span><span class="o">=</span><span class="s1">&#39;test/settings.ini&#39;</span><span class="p">)[</span><span class="s1">&#39;storage_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">read_config</span><span class="p">(</span><span class="s1">&#39;local_cwd&#39;</span><span class="p">,</span><span class="n">config_name</span><span class="o">=</span><span class="s1">&#39;test/settings.ini&#39;</span><span class="p">)[</span><span class="s1">&#39;storage_client&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;storage_tools.core.LocalStorageClient&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -403,7 +404,8 @@ description: "Core tools for working with storage."
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_config</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">storage_type</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span><span class="n">local_path</span><span class="o">=</span><span class="s1">&#39;test/local_path2&#39;</span><span class="p">,</span><span class="n">storage_area</span><span class="o">=</span><span class="s1">&#39;test/storage_area2&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_config</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">storage_client</span><span class="o">=</span><span class="s1">&#39;storage_tools.core.LocalStorageClient&#39;</span><span class="p">,</span>
+                 <span class="n">local_path</span><span class="o">=</span><span class="s1">&#39;test/local_path2&#39;</span><span class="p">,</span><span class="n">storage_area</span><span class="o">=</span><span class="s1">&#39;test/storage_area2&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -616,7 +618,7 @@ description: "Core tools for working with storage."
 </ul>
 </li>
 </ul>
-<p><a href="/storage_tools/cli#upload_dataset"><code>upload_dataset</code></a> will;</p>
+<p><code>upload_dataset</code> will;</p>
 <ul>
 <li>create a folder <code>[local_path]/[name].[version]</code><ul>
 <li>if this folder already exists, as error will be raised</li>
@@ -624,7 +626,11 @@ description: "Core tools for working with storage."
 </li>
 <li>copy the file or folder contents (and all sub-folders) to this folder</li>
 <li>create a manifest in this folder</li>
-<li>create a zip archive, called <code>[name].[version].zip</code>, of this folder</li>
+<li>create a zip archive, called <code>[name].[version].zip</code>, of this folder<ul>
+<li>Use the optional <code>compression_level</code> config setting to control the level of compression used by <code>zlib</code></li>
+<li>If you are creating a dataset of files that are already compressed (e.g. images, models etc), setting <code>compression_level=0</code> can make this step run much faster</li>
+</ul>
+</li>
 <li>upload the zip archive to remote storage</li>
 <li>return the location of the dataset in remote storage</li>
 </ul>
@@ -744,7 +750,7 @@ description: "Core tools for working with storage."
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">storage_client</span><span class="o">=</span><span class="n">LocalStorageClient</span><span class="p">(</span><span class="n">test_config</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_client&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;storage_tools.core.LocalStorageClient&#39;</span>
 <span class="n">test_fail</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;bad_key&#39;</span><span class="p">])</span>
 </pre></div>
 
@@ -787,12 +793,12 @@ description: "Core tools for working with storage."
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_type&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_client&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;storage_tools.core.LocalStorageClient&#39;</span>
 <span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;bad_key&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">None</span>
-<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_type&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
-<span class="n">test_fail</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_type&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_client&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;storage_tools.core.LocalStorageClient&#39;</span>
+<span class="n">test_fail</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_client&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))</span>
 <span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;bad_key&#39;</span><span class="p">,</span><span class="s1">&#39;but its ok&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;but its ok&#39;</span>
-<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_type&#39;</span><span class="p">,</span><span class="s1">&#39;default is not used&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">cfg</span><span class="p">(</span><span class="s1">&#39;storage_client&#39;</span><span class="p">,</span><span class="s1">&#39;default is not used&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;storage_tools.core.LocalStorageClient&#39;</span>
 </pre></div>
 
     </div>
@@ -894,7 +900,7 @@ description: "Core tools for working with storage."
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/core.py#L282" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>)</p>
 </blockquote>
-<p>Returns a storage client based on the configured <code>storage_type</code></p>
+<p>Returns a storage client based on the configured <code>storage_client</code></p>
 
 </div>
 
@@ -906,6 +912,20 @@ description: "Core tools for working with storage."
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This function reads the <code>storage_name</code> section of <code>config_name</code>.</p>
+<p>A key config setting is <code>storage_client</code> which should;</p>
+<ul>
+<li>specify the storage client implementation to use (fully qualified with package name)</li>
+<li>refer to a module that can be imported</li>
+<li>refer to a class that is a <a href="/storage_tools/core#StorageClientABC"><code>StorageClientABC</code></a> (that has not changed the signature of <code>__init__</code>)</li>
+</ul>
+<p>This makes it possible to use a storage client implementation that is not defined in this project.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -914,7 +934,7 @@ description: "Core tools for working with storage."
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;local_test&#39;</span><span class="p">,</span><span class="s1">&#39;test/settings.ini&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_client&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;storage_tools.core.LocalStorageClient&#39;</span>
 <span class="n">test_fail</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;gcp_dummy&#39;</span><span class="p">,</span><span class="s1">&#39;test/settings.ini&#39;</span><span class="p">))</span>
 </pre></div>
 
@@ -936,7 +956,7 @@ description: "Core tools for working with storage."
 
 <span class="n">storage_client</span><span class="o">=</span><span class="n">LocalStorageClient</span><span class="p">(</span><span class="n">test_config</span><span class="p">)</span>
 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">LocalStorageClient</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;local&#39;</span>
+<span class="k">assert</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_client&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;storage_tools.core.LocalStorageClient&#39;</span>
 <span class="n">test_eq</span><span class="p">([],</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">())</span>
 <span class="n">test_eq</span><span class="p">([],</span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">))</span>
     
@@ -1038,9 +1058,9 @@ description: "Core tools for working with storage."
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;azure_dummy&#39;</span><span class="p">,</span><span class="s1">&#39;test/settings.ini&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">AzureStorageClient</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">storage_client</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span><span class="s1">&#39;AzureStorageClient&#39;</span><span class="p">)</span>
 <span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;aws_dummy&#39;</span><span class="p">,</span><span class="s1">&#39;test/settings.ini&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">AwsStorageClient</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">storage_client</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span><span class="s1">&#39;AwsStorageClient&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>

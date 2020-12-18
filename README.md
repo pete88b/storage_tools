@@ -83,7 +83,7 @@ where `settings.ini` contains
 local_path=data
 
 [azure_demo]
-storage_type=azure
+storage_client=storage_tools.core.AzureStorageClient
 conn_str=<A connection string to an Azure Storage account without credential>
 credential=<The credentials with which to authenticate>
 container=<The name of a storage container>
@@ -140,7 +140,7 @@ It's the same as Azure except `settings.ini` contains
 local_path=data
 
 [aws_demo]
-storage_type=aws
+storage_client=storage_tools.core.AwsStorageClient
 service_name=s3
 aws_access_key_id=<An AWS access key ID>
 aws_secret_access_key=<An AWS access key>

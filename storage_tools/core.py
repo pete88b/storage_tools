@@ -10,7 +10,7 @@ from configparser import ConfigParser
 from pathlib import Path
 import azure.storage.blob,azure.core.exceptions
 import boto3
-import zlib,shutil,re,json,hashlib,datetime
+import zlib,shutil,re,json,importlib,hashlib,datetime
 from typing import List,Tuple,Optional,Union
 
 # Cell
@@ -233,7 +233,7 @@ class AzureStorageClient(StorageClientABC):
         try:
             with open(p, 'rb') as f:
                 self.client.upload_blob(filename,f,overwrite=overwrite)
-            return f"{self.config['storage_type']}:{self.config['container']}:{filename}"
+            return f"{self.config['storage_client']}:{self.config['container']}:{filename}"
         except azure.core.exceptions.ResourceExistsError as e:
             raise FileExistsError(f'{e}\noverwrite=False')
 
@@ -269,7 +269,7 @@ class AwsStorageClient(StorageClientABC):
         return p
 
     def upload(self,filename,overwrite=False):
-        result=f"{self.config['storage_type']}:{self.config['bucket']}:{filename}"
+        result=f"{self.config['storage_client']}:{self.config['bucket']}:{filename}"
         if overwrite==False and filename in [self.ls(name_starts_with=filename)]:
             raise FileExistsError(f'{result} exists and overwrite=False')
         self.client.upload_file(
@@ -280,10 +280,12 @@ class AwsStorageClient(StorageClientABC):
 
 # Cell
 def new_storage_client(storage_name:str,config_name:str='secrets/settings.ini'):
-    "Returns a storage client based on the configured `storage_type`"
-    config=read_config(storage_name,config_name=config_name)
-    storage_type=config['storage_type']
-    if storage_type=='local': return LocalStorageClient(config)
-    elif storage_type=='azure': return AzureStorageClient(config)
-    elif storage_type=='aws': return AwsStorageClient(config)
-    else: raise ValueError(f'Unknown storage_type: {storage_type}')
+    "Returns a storage client based on the configured `storage_client`"
+    try:
+        config=read_config(storage_name,config_name=config_name)
+        storage_client=config['storage_client']
+        module=importlib.import_module(storage_client[:storage_client.rindex('.')])
+        return getattr(module,storage_client[storage_client.rindex('.')+1:])(config)
+    except Exception as ex:
+        message=f'Failed to create storage client. storage_name={storage_name}, config_name={config_name}'
+        raise ValueError(message) from ex

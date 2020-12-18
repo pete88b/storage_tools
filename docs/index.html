@@ -102,7 +102,7 @@ project_root
 local_path=data
 
 [azure_demo]
-storage_type=azure
+storage_client=storage_tools.core.AzureStorageClient
 conn_str=&lt;A connection string to an Azure Storage account without credential&gt;
 credential=&lt;The credentials with which to authenticate&gt;
 container=&lt;The name of a storage container&gt;</code></pre>
@@ -149,7 +149,7 @@ container=&lt;The name of a storage container&gt;</code></pre>
 local_path=data
 
 [aws_demo]
-storage_type=aws
+storage_client=storage_tools.core.AwsStorageClient
 service_name=s3
 aws_access_key_id=&lt;An AWS access key ID&gt;
 aws_secret_access_key=&lt;An AWS access key&gt;

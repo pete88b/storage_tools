@@ -50,10 +50,10 @@ sidebar: home_sidebar
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="You-can-run-this-notebook-using-...">You can run this notebook using ...<a class="anchor-link" href="#You-can-run-this-notebook-using-..."> </a></h2><h3 id="Azure">Azure<a class="anchor-link" href="#Azure"> </a></h3><p>To run this notebook you'll need read/write access to an azure blob store and have a <code>[azure_demo]</code> section configured in <code>secrets/settings.ini</code>.</p>
-<p>Then set <code>storage_name='azure_demo'</code> at the top of the next cell.</p>
+<p>Then set <code>storage_client=new_storage_client('azure_demo')</code> at the top of the next cell.</p>
 <h3 id="AWS">AWS<a class="anchor-link" href="#AWS"> </a></h3><p>To run this notebook you'll need read/write access to an s3 bucket and have a <code>[aws_demo]</code> section configured in <code>secrets/settings.ini</code>.</p>
-<p>Then set <code>storage_name='aws_demo'</code> at the top of the next cell.</p>
-<h3 id="or-local-storage">or local storage<a class="anchor-link" href="#or-local-storage"> </a></h3><p>Just set <code>storage_name='local_test'</code> at the top of the next cell.</p>
+<p>Then set <code>storage_client=new_storage_client('aws_demo')</code> at the top of the next cell.</p>
+<h3 id="or-local-storage">or local storage<a class="anchor-link" href="#or-local-storage"> </a></h3><p>Just set <code>storage_client=new_storage_client('local_test','test/settings.ini')</code> at the top of the next cell.</p>
 
 </div>
 </div>
@@ -65,22 +65,19 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># storage_name=&#39;aws_demo&#39;</span>
-<span class="n">storage_name</span><span class="o">=</span><span class="s1">&#39;local_test&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># storage_client=new_storage_client(&#39;aws_demo&#39;)</span>
+<span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;local_test&#39;</span><span class="p">,</span><span class="s1">&#39;test/settings.ini&#39;</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">storage_name</span><span class="o">==</span><span class="s1">&#39;azure_demo&#39;</span><span class="p">:</span>
-    <span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;azure_demo&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">AzureStorageClient</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">clean_remote</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">name_starts_with</span><span class="o">=</span><span class="s1">&#39;demos/demo_&#39;</span><span class="p">):</span>
             <span class="n">storage_client</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete_blob</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         
-<span class="k">elif</span> <span class="n">storage_name</span><span class="o">==</span><span class="s1">&#39;aws_demo&#39;</span><span class="p">:</span>
-    <span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;aws_demo&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">AwsStorageClient</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">clean_remote</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">name_starts_with</span><span class="o">=</span><span class="s1">&#39;demos/demo_&#39;</span><span class="p">):</span>
             <span class="n">storage_client</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;bucket&#39;</span><span class="p">],</span><span class="n">Key</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">storage_client</span><span class="o">=</span><span class="n">new_storage_client</span><span class="p">(</span><span class="s1">&#39;local_test&#39;</span><span class="p">,</span><span class="s1">&#39;test/settings.ini&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">clean_remote</span><span class="p">():</span>
         <span class="k">try</span><span class="p">:</span> <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_area&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/demos&#39;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span> <span class="k">pass</span>
@@ -105,7 +102,7 @@ sidebar: home_sidebar
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Using &lt;storage_tools.core.LocalStorageClient object at 0x000001B27AC49588&gt;
+<pre>Using &lt;storage_tools.core.LocalStorageClient object at 0x000001E30CB23C48&gt;
 </pre>
 </div>
 </div>
