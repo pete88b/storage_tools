@@ -11,13 +11,13 @@ entries:
       url: /
     - output: web,pdf
       title: Core
-      url: /core
+      url: core.html
     - output: web,pdf
       title: Demo
-      url: /demo
+      url: demo.html
     - output: web,pdf
       title: CLI
-      url: /cli
+      url: cli.html
     output: web
     title: storage_tools
   output: web

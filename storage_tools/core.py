@@ -28,13 +28,13 @@ def read_config(section_name:str=None,config_name:str='secrets/settings.ini'):
 # Cell
 def parse_dataset_archive_name(name:str) -> Optional[Tuple[str,...]]:
     "Returns (name,version) if `name` is a dataset archive name, `None` otherwise"
-    match = re.match('^([\./\s\w-]+)\.(\d+\.\d+\.\d+)\.zip$',name)
+    match = re.match(r'^([\./\s\w-]+)\.(\d+\.\d+\.\d+)\.zip$',name)
     return None if match is None else match.group(1,2)
 
 # Cell
 def parse_dataset_archive_version(version:str) -> List[int]:
     "Returns (major,minor,patch) if `version` is a valid dataset archive version"
-    match = re.match('^(\d+)\.(\d+)\.(\d+)$',version)
+    match = re.match(r'^(\d+)\.(\d+)\.(\d+)$',version)
     if match is None: raise ValueError(f'Invalid version: {version}')
     return [int(s) for s in match.group(1,2,3)]
 

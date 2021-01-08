@@ -2,11 +2,13 @@
 
 title: Demo
 
+
 keywords: fastai
 sidebar: home_sidebar
 
 
 
+nb_path: "00a_demo.ipynb"
 ---
 <!--
 
@@ -34,9 +36,9 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">storage_tools.core</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">Image</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">storage_tools.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 </pre></div>
 
@@ -236,7 +238,7 @@ sidebar: home_sidebar
 <span class="n">path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">dataset_name</span>
 <span class="n">path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;txt&#39;</span><span class="p">,</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span><span class="s1">&#39;png&#39;</span><span class="p">]:</span>
-    <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;test/test_data.</span><span class="si">{ext}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">path</span><span class="o">/</span><span class="n">f</span><span class="s1">&#39;test_data.</span><span class="si">{ext}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;test/test_data.</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">path</span><span class="o">/</span><span class="sa">f</span><span class="s1">&#39;test_data.</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>

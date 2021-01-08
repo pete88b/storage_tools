@@ -2,11 +2,13 @@
 
 title: CLI
 
+
 keywords: fastai
 sidebar: home_sidebar
 
 summary: "Command line tools for working with storage."
 description: "Command line tools for working with storage."
+nb_path: "50_cli.ipynb"
 ---
 <!--
 
@@ -38,13 +40,6 @@ description: "Command line tools for working with storage."
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -52,7 +47,7 @@ description: "Command line tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="upload_dataset" class="doc_header"><code>upload_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/cli.py#L10" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>upload_dataset</code>(<strong><code>storage_name</code></strong>:<code>str &lt;Section name in config&gt;</code>, <strong><code>dataset_name</code></strong>:<code>str &lt;Dataset name&gt;</code>, <strong><code>config_name</code></strong>:<code>str &lt;Path to config&gt;</code>=<em><code>'secrets/settings.ini'</code></em>, <strong><code>dataset_version</code></strong>:<code>str &lt;Dataset version&gt;</code>=<em><code>'patch'</code></em>)</p>
+<h4 id="upload_dataset" class="doc_header"><code>upload_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/cli.py#L10" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>upload_dataset</code>(<strong><code>storage_name</code></strong>:"Section name in config", <strong><code>dataset_name</code></strong>:"Dataset name", <strong><code>config_name</code></strong>:"Path to config"=<em><code>'secrets/settings.ini'</code></em>, <strong><code>dataset_version</code></strong>:"Dataset version"=<em><code>'patch'</code></em>)</p>
 </blockquote>
 <p>Create a new dataset archive and upload it to remote storage</p>
 
@@ -84,7 +79,7 @@ description: "Command line tools for working with storage."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="download_dataset" class="doc_header"><code>download_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/master/storage_tools/cli.py#L20" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>download_dataset</code>(<strong><code>storage_name</code></strong>:<code>str &lt;Section name in config&gt;</code>, <strong><code>dataset_name</code></strong>:<code>str &lt;Dataset name&gt;</code>, <strong><code>config_name</code></strong>:<code>str &lt;Path to config&gt;</code>=<em><code>'secrets/settings.ini'</code></em>, <strong><code>dataset_version</code></strong>:<code>str &lt;Dataset version&gt;</code>=<em><code>'latest'</code></em>, <strong><code>overwrite</code></strong>:<code>bool &lt;If True, delete the dataset and re-download&gt;</code>=<em><code>False</code></em>)</p>
+<h4 id="download_dataset" class="doc_header"><code>download_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/cli.py#L20" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>download_dataset</code>(<strong><code>storage_name</code></strong>:"Section name in config", <strong><code>dataset_name</code></strong>:"Dataset name", <strong><code>config_name</code></strong>:"Path to config"=<em><code>'secrets/settings.ini'</code></em>, <strong><code>dataset_version</code></strong>:"Dataset version"=<em><code>'latest'</code></em>, <strong><code>overwrite</code></strong>:"If True, delete the dataset and re-download"=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Download a dataset archive from remote storage</p>
 
@@ -94,6 +89,13 @@ description: "Command line tools for working with storage."
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -144,7 +146,7 @@ container=&lt;The name of a storage container&gt;</code></pre>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_files</span><span class="p">):</span>
         <span class="n">f</span><span class="o">=</span><span class="s1">&#39;test/local_path/&#39;</span><span class="o">+</span><span class="n">f</span>
         <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_file</span><span class="p">:</span> <span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;a little bit of data </span><span class="si">{i}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_file</span><span class="p">:</span> <span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;a little bit of data </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">test_files</span>
 </pre></div>
 
