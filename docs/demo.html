@@ -39,7 +39,7 @@ nb_path: "00a_demo.ipynb"
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">storage_tools.core</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">http.client</span><span class="o">,</span> <span class="nn">shutil</span>
 </pre></div>
 
     </div>
@@ -72,13 +72,13 @@ nb_path: "00a_demo.ipynb"
 
 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">AzureStorageClient</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">clean_remote</span><span class="p">():</span>
-        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">name_starts_with</span><span class="o">=</span><span class="s1">&#39;demos/demo_&#39;</span><span class="p">):</span>
-            <span class="n">storage_client</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete_blob</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">name_starts_with</span><span class="o">=</span><span class="s1">&#39;demos/demo_&#39;</span><span class="p">):</span>
+            <span class="n">storage_client</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete_blob</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         
 <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_client</span><span class="p">,</span><span class="n">AwsStorageClient</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">clean_remote</span><span class="p">():</span>
-        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">name_starts_with</span><span class="o">=</span><span class="s1">&#39;demos/demo_&#39;</span><span class="p">):</span>
-            <span class="n">storage_client</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;bucket&#39;</span><span class="p">],</span><span class="n">Key</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">name_starts_with</span><span class="o">=</span><span class="s1">&#39;demos/demo_&#39;</span><span class="p">):</span>
+            <span class="n">storage_client</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;bucket&#39;</span><span class="p">],</span><span class="n">Key</span><span class="o">=</span><span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">clean_remote</span><span class="p">():</span>
         <span class="k">try</span><span class="p">:</span> <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;storage_area&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/demos&#39;</span><span class="p">)</span>
@@ -104,7 +104,7 @@ nb_path: "00a_demo.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Using &lt;storage_tools.core.LocalStorageClient object at 0x0000012F28586D90&gt;
+<pre>Using &lt;storage_tools.core.LocalStorageClient object at 0x0000021447E8A820&gt;
 </pre>
 </div>
 </div>
@@ -270,9 +270,9 @@ nb_path: "00a_demo.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;demos/demo_0/test_data.csv&#39;,
- &#39;demos/demo_0/test_data.png&#39;,
- &#39;demos/demo_0/test_data.txt&#39;]</pre>
+<pre>[StorageItemProperties(demos/demo_0/test_data.csv, 2021-03-11 11:08:27.101640+00:00),
+ StorageItemProperties(demos/demo_0/test_data.png, 2021-03-11 11:08:27.110627+00:00),
+ StorageItemProperties(demos/demo_0/test_data.txt, 2021-03-11 11:08:27.091630+00:00)]</pre>
 </div>
 
 </div>
@@ -344,7 +344,7 @@ nb_path: "00a_demo.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;demos/demo_0.0.0.1.zip&#39;]</pre>
+<pre>[StorageItemProperties(demos/demo_0.0.0.1.zip, 2021-03-11 11:08:27.251624+00:00)]</pre>
 </div>
 
 </div>
@@ -357,7 +357,7 @@ nb_path: "00a_demo.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="We-can-also-storage_client.list_items-to-show-when-files-were-last-updated">We can also <code>storage_client.list_items</code> to show when files were last updated<a class="anchor-link" href="#We-can-also-storage_client.list_items-to-show-when-files-were-last-updated"> </a></h3>
+<h3 id="We-can-easily-list-just-file-names-with-a-comprehension">We can easily list just file names with a comprehension<a class="anchor-link" href="#We-can-easily-list-just-file-names-with-a-comprehension"> </a></h3>
 </div>
 </div>
 </div>
@@ -368,7 +368,7 @@ nb_path: "00a_demo.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">storage_client</span><span class="o">.</span><span class="n">list_items</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">()]</span>
 </pre></div>
 
     </div>
@@ -383,7 +383,7 @@ nb_path: "00a_demo.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[StorageItem(demos/demo_0.0.0.1.zip, 2021-03-10 13:07:41.428559+00:00)]</pre>
+<pre>[&#39;demos/demo_0.0.0.1.zip&#39;]</pre>
 </div>
 
 </div>
@@ -485,6 +485,268 @@ nb_path: "00a_demo.ipynb"
 >
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="How-can-I-create-a-new-dataset-from-files-in-remote-storage">How can I create a new dataset from files in remote storage<a class="anchor-link" href="#How-can-I-create-a-new-dataset-from-files-in-remote-storage"> </a></h1><p>The following example will use remote files that are not already in a <code>storage_tools</code> dataset to create a new <code>storage_tools</code> dataset.</p>
+<p>Start by deleting everything in our local path</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">clean_local</span><span class="p">()</span>
+<span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Create a new folder that will</p>
+<ul>
+<li>contain the files of the new dataset and</li>
+<li>be used to name the new dataset</li>
+</ul>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_dataset_name</span><span class="o">=</span><span class="s1">&#39;demos/demo_new_dataset&#39;</span>
+<span class="n">new_dataset_path</span><span class="o">=</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">storage_client</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">new_dataset_name</span><span class="p">)</span>
+<span class="n">new_dataset_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Download a single a file from remote storage</strong> and copy it to the new dataset folder</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">file</span><span class="o">=</span><span class="n">storage_client</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1">.0.0.1.zip&#39;</span><span class="p">,</span><span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">new_dataset_path</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;test\\local_path\\demos\\demo_new_dataset\\demo_0.0.0.1.zip&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This example &uarr; downloads a dataset zip file but ... if you had a file called <code>test_data.csv</code> in your remote storage, you could download it with <code>storage_client.download('test_data.csv',overwrite=True)</code>.</p>
+<p>Using the default <code>overwrite=False</code> means that your local file will not be over-written, but you won't see any errors or warnings.</p>
+<p>Pull some data from the internet and save as a file in the new dataset folder</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">new_dataset_path</span><span class="o">/</span><span class="s1">&#39;py.html&#39;</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPSConnection</span><span class="p">(</span><span class="s1">&#39;www.python.org&#39;</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we have 2 files in our new dataset ...</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">storage_client</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">,</span><span class="n">name_starts_with</span><span class="o">=</span><span class="n">new_dataset_name</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[StorageItemProperties(demos/demo_new_dataset/demo_0.0.0.1.zip, 2021-03-11 11:08:27.492631+00:00),
+ StorageItemProperties(demos/demo_new_dataset/py.html, 2021-03-11 11:08:27.726672+00:00)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>... which we use to create a new dataset in remote storage</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">storage_client</span><span class="o">.</span><span class="n">upload_dataset</span><span class="p">(</span><span class="n">new_dataset_name</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>WindowsPath(&#39;test/storage_area/demos/demo_new_dataset.0.0.1.zip&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="You-can-upload-single-files-to-remote-storeage-using-storage_client.upload">You can upload single files to remote storeage using <code>storage_client.upload</code><a class="anchor-link" href="#You-can-upload-single-files-to-remote-storeage-using-storage_client.upload"> </a></h3><p>The code below shows that if we use the default <code>overwrite=False</code> when uploading a file, we can't accidentally overwrite a file in remote storage.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span> <span class="n">storage_client</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1">.0.0.1.zip&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileExistsError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FileExistsError&#39;</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>FileExistsError test\storage_area\demos\demo_0.0.0.1.zip exists and overwrite=False
+</pre>
+</div>
 </div>
 
 </div>

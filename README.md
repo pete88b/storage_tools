@@ -168,7 +168,7 @@ git config --global core.autocrlf input
 Then from the storage_tools project folder
 ```
 nbdev_build_lib
-mypy storage_tools/core.py
+mypy storage_tools/core.py --ignore-missing-imports
 ```
 
 For now, I'm ignoring the "Skipping analyzing 'azure': found module but no type hints or library stubs" error

@@ -179,7 +179,7 @@ bucket=&lt;The name of an AWS bucket that the access key is allowed to read from
 <p>Then from the storage_tools project folder</p>
 
 <pre><code>nbdev_build_lib
-mypy storage_tools/core.py</code></pre>
+mypy storage_tools/core.py --ignore-missing-imports</code></pre>
 <p>For now, I'm ignoring the "Skipping analyzing 'azure': found module but no type hints or library stubs" error</p>
 
 </div>

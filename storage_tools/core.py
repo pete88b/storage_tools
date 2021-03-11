@@ -2,7 +2,7 @@
 
 __all__ = ['read_config', 'os_environ_config', 'parse_dataset_archive_name', 'parse_dataset_archive_version',
            'next_version', 'sha256', 'make_or_update_manifest', 'check_archive', 'make_dataset_archive_folder',
-           'StorageItem', 'StorageClientABC', 'LocalStorageClient', 'AzureStorageClient', 'AwsStorageClient',
+           'StorageItemProperties', 'StorageClientABC', 'LocalStorageClient', 'AzureStorageClient', 'AwsStorageClient',
            'new_storage_client']
 
 # Cell
@@ -116,15 +116,14 @@ def make_dataset_archive_folder(
     return f'{path}/{name}.{version}'
 
 # Cell
-class StorageItem:
-    """Metadata pertaining to an item in storage - i.e. a file"""
+class StorageItemProperties:
+    """Properties of a file or blob"""
 
     def __init__(self,name:str,last_updated:datetime.datetime):
-        "Create a new storage item"
         self.name,self.last_updated=name,last_updated
 
     def __repr__(self):
-        return f'StorageItem({self.name}, {self.last_updated})'
+        return f'StorageItemProperties({self.name}, {self.last_updated})'
 
 # Cell
 def _last_updated(file):
@@ -146,28 +145,16 @@ class StorageClientABC(ABC):
             raise ValueError(f'Config[{key}] should be a {dtype} but we found {result} which is a {type(result)}')
         return result
 
-    def list_items(self, what:str='storage_area',name_starts_with:str=None) -> List[StorageItem]:
-        "Return a list containing `StorageItem`s in either `storage_area` or `local_path`"
+    def ls(self, what:str='storage_area',name_starts_with:str=None) -> List[StorageItemProperties]:
+        "Return properties of files in either `storage_area` or `local_path`"
         p=Path(self.config[what])
         p.mkdir(parents=True,exist_ok=True)
         len_p=len(str(p).replace('\\','/'))
-        result=[StorageItem(str(f).replace('\\','/')[len_p+1:],_last_updated(f))
+        result=[StorageItemProperties(str(f).replace('\\','/')[len_p+1:],_last_updated(f))
                 for f in p.rglob('*') if f.is_file()]
         if name_starts_with is not None:
             result=[r for r in result if r.name.startswith(name_starts_with)]
         return sorted(result, key=lambda item: (item.name,item.last_updated))
-
-    def ls(self, what:str='storage_area',name_starts_with:str=None) -> List[str]:
-        "Return a list containing the names of files in either `storage_area` or `local_path`"
-        return [i.name for i in self.list_items(what,name_starts_with)]
-        #TODO: xxx
-#         p=Path(self.config[what])
-#         p.mkdir(parents=True,exist_ok=True)
-#         len_p=len(str(p).replace('\\','/'))
-#         result=[str(f).replace('\\','/')[len_p+1:] for f in p.rglob('*') if f.is_file()]
-#         if name_starts_with is not None:
-#             result=[r for r in result if r.startswith(name_starts_with)]
-#         return sorted(result)
 
     @abstractmethod
     def download(self, filename:str) -> Path:
@@ -183,7 +170,7 @@ class StorageClientABC(ABC):
 
     def ls_versions(self, name:str, what:str='storage_area') -> Union[List[str],None]:
         "Return a list containing all versions of the specified archive `name`"
-        files=[parse_dataset_archive_name(f) for f in self.ls(what)]
+        files=[parse_dataset_archive_name(f.name) for f in self.ls(what)]
         result=[f[1] for f in files if f is not None and f[0]==name]
         if not result: return None
         return sorted(result, key=self._sort_by_dataset_archive_version)
@@ -250,9 +237,9 @@ class AzureStorageClient(StorageClientABC):
             self._client=service_client.get_container_client(self.config['container'])
         return self._client
 
-    def list_items(self, what:str='storage_area',name_starts_with:str=None) -> List[StorageItem]:
-        if what=='local_path': return super().list_items(what,name_starts_with)
-        result=[StorageItem(b.name,b.last_modified) for b in self.client.list_blobs(name_starts_with)]
+    def ls(self, what:str='storage_area',name_starts_with:str=None) -> List[StorageItemProperties]:
+        if what=='local_path': return super().ls(what,name_starts_with)
+        result=[StorageItemProperties(b.name,b.last_modified) for b in self.client.list_blobs(name_starts_with)]
         return sorted(result, key=lambda item: (item.name,item.last_updated))
 
     def download(self,filename,overwrite=False):
@@ -284,23 +271,14 @@ class AwsStorageClient(StorageClientABC):
                                       aws_secret_access_key=self.config['aws_secret_access_key'])
         return self._client
 
-    def list_items(self, what:str='storage_area',name_starts_with:str=None) -> List[StorageItem]:
-        if what=='local_path': return super().list_items(what,name_starts_with)
-        args=dict(Bucket=self.config['bucket'])
-        if name_starts_with is not None: args['Prefix']=name_starts_with
-        objects=self.client.list_objects_v2(**args)
-        if objects['KeyCount']==0: return []
-        result=[StorageItem(o['Key'],o['LastModified']) for o in objects['Contents'] if o['Size']>0]
-        return sorted(result, key=lambda item: (item.name,item.last_updated))
-
-    def ls(self,what='storage_area',name_starts_with=None):
+    def ls(self, what:str='storage_area',name_starts_with:str=None) -> List[StorageItemProperties]:
         if what=='local_path': return super().ls(what,name_starts_with)
         args=dict(Bucket=self.config['bucket'])
         if name_starts_with is not None: args['Prefix']=name_starts_with
         objects=self.client.list_objects_v2(**args)
         if objects['KeyCount']==0: return []
-        result=[o['Key'] for o in objects['Contents'] if o['Size']>0]
-        return sorted(result)
+        result=[StorageItemProperties(o['Key'],o['LastModified']) for o in objects['Contents'] if o['Size']>0]
+        return sorted(result, key=lambda item: (item.name,item.last_updated))
 
     def download(self,filename,overwrite=False):
         p=Path(self.config['local_path'])/filename
@@ -314,7 +292,7 @@ class AwsStorageClient(StorageClientABC):
 
     def upload(self,filename,overwrite=False):
         result=f"{self.config['storage_client']}:{self.config['bucket']}:{filename}"
-        if overwrite==False and filename in [self.ls(name_starts_with=filename)]:
+        if overwrite==False and filename in [f.name for f in self.ls(name_starts_with=filename)]:
             raise FileExistsError(f'{result} exists and overwrite=False')
         self.client.upload_file(
                 Filename='/'.join([self.config['local_path'],filename]),
