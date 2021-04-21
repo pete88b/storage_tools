@@ -456,7 +456,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_dataset_archive_folder" class="doc_header"><code>make_dataset_archive_folder</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_dataset_archive_folder</code>(<strong><code>path</code></strong>:<code>str</code>, <strong><code>name</code></strong>:<code>str</code>, <strong><code>versions</code></strong>:<code>List</code>[<code>str</code>]=<em><code>None</code></em>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
+<h4 id="make_dataset_archive_folder" class="doc_header"><code>make_dataset_archive_folder</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L99" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_dataset_archive_folder</code>(<strong><code>path</code></strong>:<code>str</code>, <strong><code>name</code></strong>:<code>str</code>, <strong><code>versions</code></strong>:<code>List</code>[<code>str</code>]=<em><code>None</code></em>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
 </blockquote>
 <p>Create a new dataset archive folder in <code>path</code></p>
 
@@ -556,7 +556,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="StorageItemProperties" class="doc_header"><code>class</code> <code>StorageItemProperties</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L119" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>StorageItemProperties</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>last_updated</code></strong>:<code>datetime</code>)</p>
+<h2 id="StorageItemProperties" class="doc_header"><code>class</code> <code>StorageItemProperties</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L122" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>StorageItemProperties</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>last_updated</code></strong>:<code>datetime</code>)</p>
 </blockquote>
 <p>Properties of a file or blob</p>
 
@@ -595,7 +595,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="StorageClientABC" class="doc_header"><code>class</code> <code>StorageClientABC</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L134" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>StorageClientABC</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <code>ABC</code></p>
+<h2 id="StorageClientABC" class="doc_header"><code>class</code> <code>StorageClientABC</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L137" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>StorageClientABC</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <code>ABC</code></p>
 </blockquote>
 <p>Defines functionality common to all storage clients</p>
 
@@ -627,7 +627,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.__init__" class="doc_header"><code>StorageClientABC.__init__</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L137" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.__init__</code>(<strong><code>config</code></strong>:<code>dict</code>)</p>
+<h4 id="StorageClientABC.__init__" class="doc_header"><code>StorageClientABC.__init__</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L140" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.__init__</code>(<strong><code>config</code></strong>:<code>dict</code>)</p>
 </blockquote>
 <p>Create a new storage client using the specified <code>config</code></p>
 
@@ -652,7 +652,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.ls" class="doc_header"><code>StorageClientABC.ls</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L148" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls</code>(<strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>, <strong><code>name_starts_with</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
+<h4 id="StorageClientABC.ls" class="doc_header"><code>StorageClientABC.ls</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L151" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls</code>(<strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>, <strong><code>name_starts_with</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return properties of files in either <code>storage_area</code> or <code>local_path</code></p>
 
@@ -677,7 +677,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.ls_versions" class="doc_header"><code>StorageClientABC.ls_versions</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L171" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls_versions</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>)</p>
+<h4 id="StorageClientABC.ls_versions" class="doc_header"><code>StorageClientABC.ls_versions</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L174" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.ls_versions</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>what</code></strong>:<code>str</code>=<em><code>'storage_area'</code></em>)</p>
 </blockquote>
 <p>Return a list containing all versions of the specified archive <code>name</code></p>
 
@@ -702,7 +702,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.upload_dataset" class="doc_header"><code>StorageClientABC.upload_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.upload_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
+<h4 id="StorageClientABC.upload_dataset" class="doc_header"><code>StorageClientABC.upload_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L190" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.upload_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'patch'</code></em>)</p>
 </blockquote>
 <p>Create a new dataset archive and upload it to <code>storage_area</code></p>
 
@@ -745,6 +745,10 @@ nb_path: "00_core.ipynb"
 </li>
 <li>copy the file or folder contents (and all sub-folders) to this folder</li>
 <li>create a manifest in this folder</li>
+<li>upload the manifest called <code>[name].[version].manifest.json</code> to remote storage<ul>
+<li>this makes it possible to see what is in a dataset with <code>storage_client.download_manifest</code></li>
+</ul>
+</li>
 <li>create a zip archive, called <code>[name].[version].zip</code>, of this folder<ul>
 <li>Use the optional <code>compression_level</code> config setting to control the level of compression used by <code>zlib</code></li>
 <li>If you are creating a dataset of files that are already compressed (e.g. images, models etc), setting <code>compression_level=0</code> can make this step run much faster</li>
@@ -779,7 +783,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.download_dataset" class="doc_header"><code>StorageClientABC.download_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L191" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.download_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'latest'</code></em>, <strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+<h4 id="StorageClientABC.download_dataset" class="doc_header"><code>StorageClientABC.download_dataset</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L204" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.download_dataset</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'latest'</code></em>, <strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Download a dataset archive from <code>storage_area</code> and extract it to <code>local_path</code></p>
 
@@ -833,7 +837,39 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LocalStorageClient" class="doc_header"><code>class</code> <code>LocalStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L208" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LocalStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core.html#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h4 id="StorageClientABC.download_manifest" class="doc_header"><code>StorageClientABC.download_manifest</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L220" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.download_manifest</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>version</code></strong>:<code>str</code>=<em><code>'latest'</code></em>, <strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Download a dataset manifest from <code>storage_area</code> to <code>local_path</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Use <code>download_manifest</code> to see what is in a dataset without downloading the full dataset.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="LocalStorageClient" class="doc_header"><code>class</code> <code>LocalStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L235" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LocalStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core.html#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
 <p>Storage client that uses the local filesystem for both <code>storage_area</code> and <code>local_path</code></p>
 
@@ -891,7 +927,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="StorageClientABC.config_get" class="doc_header"><code>StorageClientABC.config_get</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L141" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.config_get</code>(<strong><code>key</code></strong>, <strong><code>default</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="StorageClientABC.config_get" class="doc_header"><code>StorageClientABC.config_get</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L144" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>StorageClientABC.config_get</code>(<strong><code>key</code></strong>, <strong><code>default</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return a value via <code>self.config.get</code> optionally checking that the value is of <code>dtype</code></p>
 
@@ -938,7 +974,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="AzureStorageClient" class="doc_header"><code>class</code> <code>AzureStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L229" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AzureStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core.html#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h2 id="AzureStorageClient" class="doc_header"><code>class</code> <code>AzureStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L256" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AzureStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core.html#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
 <p>Storage client that uses Azure for <code>storage_area</code> and the local filesystem <code>local_path</code></p>
 
@@ -970,7 +1006,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="AwsStorageClient" class="doc_header"><code>class</code> <code>AwsStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L263" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AwsStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core.html#StorageClientABC"><code>StorageClientABC</code></a></p>
+<h2 id="AwsStorageClient" class="doc_header"><code>class</code> <code>AwsStorageClient</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L290" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AwsStorageClient</code>(<strong><code>config</code></strong>:<code>dict</code>) :: <a href="/storage_tools/core.html#StorageClientABC"><code>StorageClientABC</code></a></p>
 </blockquote>
 <p>Storage client that uses AWS for <code>storage_area</code> and the local filesystem <code>local_path</code></p>
 
@@ -1010,7 +1046,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L304" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>)</p>
+<h4 id="new_storage_client" class="doc_header"><code>new_storage_client</code><a href="https://github.com/pete88b/storage_tools/tree/main/storage_tools/core.py#L331" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>new_storage_client</code>(<strong><code>storage_name</code></strong>:<code>str</code>, <strong><code>config_name</code></strong>:<code>str</code>=<em><code>'secrets/settings.ini'</code></em>)</p>
 </blockquote>
 <p>Returns a storage client based on the configured <code>storage_client</code></p>
 
@@ -1193,16 +1229,23 @@ nb_path: "00_core.ipynb"
 
 <span class="k">def</span> <span class="nf">_t</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span><span class="n">upload_name</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;patch&#39;</span><span class="p">):</span>
     <span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;storage_area&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">expected</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">upload_dataset</span><span class="p">(</span><span class="n">upload_name</span><span class="p">,</span><span class="n">version</span><span class="p">))</span>
+    <span class="n">standalone_mf</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;storage_area&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">expected</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.zip&#39;</span><span class="p">,</span><span class="s1">&#39;.manifest.json&#39;</span><span class="p">)</span>
+    <span class="n">test_eq</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="n">standalone_mf</span><span class="o">.</span><span class="n">is_file</span><span class="p">())</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;test_data.txt.0.0.1.zip&#39;</span><span class="p">,</span><span class="s1">&#39;test_data.txt&#39;</span><span class="p">)</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;sub.0.0.1.zip&#39;</span><span class="p">,</span><span class="s1">&#39;sub&#39;</span><span class="p">)</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;sub/test_data.0.0.2.txt.0.0.1.zip&#39;</span><span class="p">,</span><span class="s1">&#39;sub/test_data.0.0.2.txt&#39;</span><span class="p">)</span>
-<span class="c1"># switch off compression when creating zip archives</span>
+<span class="c1"># you can ... switch off compression when creating zip archives</span>
 <span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;compression_level&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;a.3.0.0.zip&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">)</span>
 <span class="n">_t</span><span class="p">(</span><span class="s1">&#39;a.3.0.1.zip&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
 <span class="c1"># TODO: check zip contents</span>
-<span class="n">_rmtree</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/a.3.0.0&#39;</span><span class="p">)</span>
-<span class="n">_rmtree</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/a.3.0.1&#39;</span><span class="p">)</span>
+<span class="c1"># remove local copies of the a.3.0.x datasets so we can test downloading them</span>
+<span class="k">for</span> <span class="n">_f</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;a.3.0.0&#39;</span><span class="p">,</span><span class="s1">&#39;a.3.0.1&#39;</span><span class="p">]:</span>
+    <span class="n">_rmtree</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">_f</span><span class="p">)</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">_f</span><span class="o">+</span><span class="s1">&#39;.zip&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">_f</span><span class="o">+</span><span class="s1">&#39;.manifest.json&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+<span class="c1"># check that we can download the standalone manifest</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">])</span><span class="o">/</span><span class="s1">&#39;a.3.0.1.manifest.json&#39;</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">download_manifest</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">))</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">])</span><span class="o">/</span><span class="s1">&#39;a.3.0.1&#39;</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">download_dataset</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">))</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">])</span><span class="o">/</span><span class="s1">&#39;a.3.0.0&#39;</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">download_dataset</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">))</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">])</span><span class="o">/</span><span class="s1">&#39;a.3.0.0&#39;</span><span class="p">,</span><span class="n">storage_client</span><span class="o">.</span><span class="n">download_dataset</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">))</span>
@@ -1219,9 +1262,11 @@ nb_path: "00_core.ipynb"
 <span class="n">manifest</span><span class="p">[</span><span class="s1">&#39;files&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[]</span>
 <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span><span class="nb">open</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/a.3.0.0/manifest.json&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">))</span>
 <span class="n">check_archive</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/a.3.0.0&#39;</span><span class="p">)</span>
-<span class="c1"># check_archive will fail if it can&#39;t find a manifest</span>
+<span class="c1"># check_archive will print a warning if it can&#39;t find a manifest</span>
 <span class="n">Path</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/a.3.0.0/manifest.json&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
-<span class="n">test_fail</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">check_archive</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/a.3.0.0&#39;</span><span class="p">))</span>
+<span class="n">test_stdout</span><span class="p">(</span>
+    <span class="k">lambda</span><span class="p">:</span> <span class="n">check_archive</span><span class="p">(</span><span class="n">test_config</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/a.3.0.0&#39;</span><span class="p">),</span>
+    <span class="s2">&quot;Warning: Can&#39;t check archive. manifest.json is missing or does not contain &#39;files&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>

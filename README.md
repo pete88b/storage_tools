@@ -154,9 +154,10 @@ git config --global core.autocrlf input
 ```
 
 ```
-!pip install fastcore
-!pip install boto3
-!pip install azure-storage-blob
+conda create -n storage_tools python==3.8 -y
+conda activate storage_tools
+pip install fastcore nbdev jupyter
+pip install boto3 azure-storage-blob
 ```
 
 ## Type checking with mypy

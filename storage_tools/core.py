@@ -87,6 +87,9 @@ def make_or_update_manifest(archive_folder:Union[Path,str]):
 def check_archive(archive_folder:Union[Path,str]):
     "Check that all files listed in manifest.json have the correct secure hash"
     p,mf,m=_get_manifest(archive_folder)
+    if 'files' not in m:
+        print("Warning: Can't check archive. manifest.json is missing or does not contain 'files'")
+        return
     for file in m['files']:
         expected,actual=file['sha256'],sha256(p/file['file'])
         if actual!=expected:
@@ -175,10 +178,20 @@ class StorageClientABC(ABC):
         if not result: return None
         return sorted(result, key=self._sort_by_dataset_archive_version)
 
+    def _upload_manifest(self, archive_folder:str) -> Union[Path,str]:
+        "Upload a standalone manifest file to `storage_area`"
+        archive_folder=Path(archive_folder)
+        if not (archive_folder/'manifest.json').is_file():
+            raise FileNotFoundError(f'{archive_folder}/manifest.json not found')
+        mf=archive_folder.parent/f'{archive_folder.name}.manifest.json'
+        shutil.copyfile(archive_folder/'manifest.json', mf)
+        return self.upload(f"{mf.relative_to(self.config['local_path'])}")
+
     def upload_dataset(self, name:str, version:str='patch') -> Union[Path,str]:
         "Create a new dataset archive and upload it to `storage_area`"
         archive_folder=make_dataset_archive_folder(
                 self.config['local_path'],name,self.ls_versions(name),version)
+        self._upload_manifest(archive_folder)
         default_compression=zlib.Z_DEFAULT_COMPRESSION
         compression=self.config_get('compression_level',default_compression,int)
         try:
@@ -202,6 +215,20 @@ class StorageClientABC(ABC):
         archive=self.download(f'{name}.{version}.zip')
         shutil.unpack_archive(str(archive),dst)
         check_archive(dst)
+        return dst
+
+    def download_manifest(self, name:str, version:str='latest', overwrite:bool=False) -> Path:
+        "Download a dataset manifest from `storage_area` to `local_path`"
+        if version=='latest':
+            versions=self.ls_versions(name)
+            if versions is None:
+                raise ValueError('latest version requested but no versions exist in storage area')
+            version=versions[-1]
+        dst=Path(self.config['local_path'])/f'{name}.{version}.manifest.json'
+        if dst.exists():
+            if not overwrite: return dst
+            else: dst.unlink()
+        self.download(dst.name)
         return dst
 
 # Cell

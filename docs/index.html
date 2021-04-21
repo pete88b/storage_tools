@@ -165,9 +165,10 @@ bucket=&lt;The name of an AWS bucket that the access key is allowed to read from
 <h1 id="Developers">Developers<a class="anchor-link" href="#Developers"> </a></h1>
 <pre><code>git config --global core.autocrlf input</code></pre>
 
-<pre><code>!pip install fastcore
-!pip install boto3
-!pip install azure-storage-blob</code></pre>
+<pre><code>conda create -n storage_tools python==3.8 -y
+conda activate storage_tools
+pip install fastcore nbdev jupyter
+pip install boto3 azure-storage-blob</code></pre>
 
 </div>
 </div>
