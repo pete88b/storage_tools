@@ -228,7 +228,7 @@ class StorageClientABC(ABC):
         if dst.exists():
             if not overwrite: return dst
             else: dst.unlink()
-        self.download(dst.name)
+        self.download(f'{name}.{version}.manifest.json')
         return dst
 
 # Cell
@@ -273,8 +273,9 @@ class AzureStorageClient(StorageClientABC):
         p=Path(self.config['local_path'])/filename
         if p.exists() and not overwrite: return p
         p.parent.mkdir(parents=True,exist_ok=True)
+        downloader=self.client.download_blob(filename)
         with open(p, 'wb') as f:
-            f.write(self.client.download_blob(filename).readall())
+            f.write(downloader.readall())
         return p
 
     def upload(self,filename,overwrite=False):
